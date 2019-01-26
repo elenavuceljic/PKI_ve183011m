@@ -22,4 +22,7 @@
     <string name="furniture_assemblly">Furniture assembly</string>
     <string name="a_c">Air conditioning</string>
     <string name="painting">Interior painting</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
