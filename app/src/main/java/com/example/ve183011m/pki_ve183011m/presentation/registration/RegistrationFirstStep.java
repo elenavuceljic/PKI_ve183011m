@@ -13,9 +13,7 @@ import com.example.ve183011m.pki_ve183011m.databinding.FragmentFirstStepRegistra
 
 import java.util.Objects;
 
-public class RegistrationFirstStep extends Fragment {
-
-    private static final String ARG_VM = "REGISTRATION_VM";
+public class RegistrationFirstStep extends Fragment implements RegistrationVM.RegistrationFirstStepCallback {
 
     private RegistrationVM registrationVM;
     private FragmentFirstStepRegistrationBinding binding;
@@ -23,29 +21,98 @@ public class RegistrationFirstStep extends Fragment {
     public RegistrationFirstStep() {
     }
 
-    public static RegistrationFirstStep newInstance(RegistrationVM registrationVM) {
-        RegistrationFirstStep fragment = new RegistrationFirstStep();
-        Bundle args = new Bundle();
-        args.putSerializable(ARG_VM, registrationVM);
-        fragment.setArguments(args);
-        return fragment;
+    public static RegistrationFirstStep newInstance() {
+        return new RegistrationFirstStep();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         registrationVM = ((RegistrationActivity) Objects.requireNonNull(getActivity())).registrationVM;
-//        if (getArguments() != null) {
-//            registrationVM = (RegistrationVM) getArguments().getSerializable(ARG_VM);
-//        }
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_first_step_registration, container, true);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_first_step_registration, container, false);
         binding.setVm(registrationVM);
+        editTextConfig(binding);
+        binding.nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (registrationVM.validateFirstStepInput(RegistrationFirstStep.this)) {
+                    registrationVM.next();
+                }
+            }
+        });
         return binding.getRoot();
     }
 
+    private void editTextConfig(final FragmentFirstStepRegistrationBinding binding) {
+        binding.etUsername.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean isFocused) {
+                if (isFocused) {
+                    binding.usernameWrapper.setError(null);
+                } else {
+                    registrationVM.validateUsername(RegistrationFirstStep.this);
+                }
+            }
+        });
+        binding.etPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean isFocused) {
+                if (isFocused) {
+                    binding.passwordWrapper.setError(null);
+                } else {
+                    registrationVM.validatePassword(RegistrationFirstStep.this);
+                }
+            }
+        });
+        binding.etSecondPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean isFocused) {
+                if (isFocused) {
+                    binding.secondPasswordWrapper.setError(null);
+                } else {
+                    registrationVM.validateSecondPassword(RegistrationFirstStep.this);
+                }
+            }
+        });
+        binding.etFullName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean isFocused) {
+                if (isFocused) {
+                    binding.fullNameWrapper.setError(null);
+                } else {
+                    registrationVM.validateFullName(RegistrationFirstStep.this);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onEmptyUsername() {
+        binding.usernameWrapper.setError("Enter username");
+    }
+
+    @Override
+    public void onEmptyPassword() {
+        binding.passwordWrapper.setError("Enter password");
+    }
+
+    @Override
+    public void onEmptySecondPassword() {
+        binding.secondPasswordWrapper.setError("Enter password");
+    }
+
+    @Override
+    public void onDifferentPasswords() {
+        binding.secondPasswordWrapper.setError("Passwords don't match");
+    }
+
+    @Override
+    public void onEmptyFullName() {
+        binding.fullNameWrapper.setError("Enter full name");
+    }
 }

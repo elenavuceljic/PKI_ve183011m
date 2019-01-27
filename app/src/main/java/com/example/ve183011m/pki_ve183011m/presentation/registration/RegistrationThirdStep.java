@@ -1,92 +1,57 @@
 package com.example.ve183011m.pki_ve183011m.presentation.registration;
 
-import android.content.Context;
-import android.net.Uri;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
 
 import com.example.ve183011m.pki_ve183011m.R;
+import com.example.ve183011m.pki_ve183011m.databinding.FragmentRegistrationThirdStepBinding;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link RegistrationThirdStep.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link RegistrationThirdStep#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.Objects;
+
 public class RegistrationThirdStep extends Fragment {
 
-    private static final String ARG_VM = "REGISTRATION_VM";
-
     private RegistrationVM registrationVM;
-
-    private OnFragmentInteractionListener mListener;
+    private FragmentRegistrationThirdStepBinding binding;
 
     public RegistrationThirdStep() {
     }
 
-    public static RegistrationThirdStep newInstance(RegistrationVM registrationVM) {
-        RegistrationThirdStep fragment = new RegistrationThirdStep();
-        Bundle args = new Bundle();
-        args.putSerializable(ARG_VM, registrationVM);
-        fragment.setArguments(args);
-        return fragment;
+    public static RegistrationThirdStep newInstance() {
+        return new RegistrationThirdStep();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            registrationVM = (RegistrationVM) getArguments().getSerializable(ARG_VM);
-        }
+        registrationVM = ((RegistrationActivity) Objects.requireNonNull(getActivity())).registrationVM;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_registration_third_step, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_registration_third_step, container, false);
+        binding.setVm(registrationVM);
+        binding.doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                registrationVM.next();
+            }
+        });
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                registrationVM.back();
+            }
+        });
+        binding.np.setMaxValue(50);
+        binding.np.setMinValue(1);
+        return binding.getRoot();
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 }

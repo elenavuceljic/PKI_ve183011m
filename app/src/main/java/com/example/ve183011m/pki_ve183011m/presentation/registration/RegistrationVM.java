@@ -1,8 +1,9 @@
 package com.example.ve183011m.pki_ve183011m.presentation.registration;
 
 import android.databinding.BaseObservable;
-import android.databinding.Bindable;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.databinding.ObservableInt;
 
 import com.example.ve183011m.pki_ve183011m.data.UserManager;
 import com.example.ve183011m.pki_ve183011m.model.User;
@@ -10,6 +11,24 @@ import com.example.ve183011m.pki_ve183011m.model.User;
 import java.io.Serializable;
 
 public class RegistrationVM extends BaseObservable implements Serializable {
+
+    public interface RegistrationFirstStepCallback {
+        void onEmptyUsername();
+
+        void onEmptyPassword();
+
+        void onEmptySecondPassword();
+
+        void onDifferentPasswords();
+
+        void onEmptyFullName();
+    }
+
+    public interface RegistrationSecondStepCallback {
+        void onEmptyPhone();
+
+        void onEmptyAddress();
+    }
 
     private final UserManager userManager;
     private final RegistrationHandler registrationHandler;
@@ -20,13 +39,13 @@ public class RegistrationVM extends BaseObservable implements Serializable {
     private ObservableField<String> fullName;
     private ObservableField<String> telephone;
     private ObservableField<String> address;
-    private ObservableField<Boolean> isBuyer;
-    private ObservableField<Integer> experience;
-    private ObservableField<Boolean> plumbing;
-    private ObservableField<Boolean> electrical;
-    private ObservableField<Boolean> furniture;
-    private ObservableField<Boolean> ac;
-    private ObservableField<Boolean> paintJob;
+    private ObservableBoolean isBuyer;
+    private ObservableInt experience;
+    private ObservableBoolean plumbing;
+    private ObservableBoolean electrical;
+    private ObservableBoolean furniture;
+    private ObservableBoolean ac;
+    private ObservableBoolean paintJob;
 
     private int step = 0;
 
@@ -39,106 +58,130 @@ public class RegistrationVM extends BaseObservable implements Serializable {
         fullName = new ObservableField<>();
         telephone = new ObservableField<>();
         address = new ObservableField<>();
-        isBuyer = new ObservableField<>();
-        experience = new ObservableField<>();
-        plumbing = new ObservableField<>();
-        electrical = new ObservableField<>();
-        furniture = new ObservableField<>();
-        ac = new ObservableField<>();
-        paintJob = new ObservableField<>();
+        isBuyer = new ObservableBoolean(true);
+        experience = new ObservableInt(1);
+        plumbing = new ObservableBoolean();
+        electrical = new ObservableBoolean();
+        furniture = new ObservableBoolean();
+        ac = new ObservableBoolean();
+        paintJob = new ObservableBoolean();
     }
 
-    public void nextStep() {
-        if (validateRegistrationInput()) {
-            switch (step) {
-                case 0: {
-                    step++;
-                    break;
-                }
-                case 1: {
-                    step++;
-                    break;
-                }
-                case 2: {
+    public void next() {
+        switch (step) {
+            case 0: {
+                step++;
+                registrationHandler.onNext();
+                break;
+            }
+            case 1: {
+                step++;
+                if (isBuyer.get()) {
                     User user = new User(username.get(), password.get());
                     userManager.addUser(user);
                     registrationHandler.onRegister(user);
-                    break;
+                } else {
+                    registrationHandler.onNext();
                 }
-                default: {
-                    break;
-                }
+                break;
+            }
+            case 2: {
+                User user = new User(username.get(), password.get());
+                userManager.addUser(user);
+                registrationHandler.onRegister(user);
+                break;
             }
         }
     }
 
-    public boolean validateRegistrationInput() {
+    public void back() {
+        if (step == 1 || step == 2) {
+            step--;
+            registrationHandler.onBack();
+        }
+    }
+
+    public boolean validateFirstStepInput(RegistrationFirstStepCallback callback) {
         boolean isValid = true;
-        switch (step) {
-            case 0: {
-                if (!validateUsername()) {
-                    isValid = false;
-                }
-                if (!validateSecondPassword()) {
-                    isValid = false;
-                }
-                if (!validateFullName()) {
-                    isValid = false;
-                }
-                break;
-            }
-            case 1: {
-                isValid = false;
-                break;
-            }
-            case 2: {
-                isValid = false;
-                break;
-            }
-            default: {
-                break;
-            }
+        if (!validateUsername(callback)) {
+            isValid = false;
+        }
+        if (!validateSecondPassword(callback)) {
+            isValid = false;
+        }
+        if (!validateFullName(callback)) {
+            isValid = false;
         }
         return isValid;
     }
 
-    public boolean validateUsername() {
+    public boolean validateSecondStepInput(RegistrationSecondStepCallback callback) {
+        boolean isValid = true;
+        if (!validatePhone(callback)) {
+            isValid = false;
+        }
+        if (!validateAddress(callback)) {
+            isValid = false;
+        }
+        return isValid;
+    }
+
+    public boolean validateUsername(RegistrationFirstStepCallback callback) {
         String user = username.get();
         if (user == null || user.isEmpty()) {
-            registrationHandler.onEmptyUsername();
+            callback.onEmptyUsername();
             return false;
         }
         return true;
     }
 
-    public boolean validatePassword() {
+    public boolean validatePassword(RegistrationFirstStepCallback callback) {
         String pass = password.get();
         if (pass == null || pass.isEmpty()) {
-            registrationHandler.onEmptyPassword();
+            callback.onEmptyPassword();
             return false;
         }
         return true;
     }
 
-    public boolean validateSecondPassword() {
+    public boolean validateSecondPassword(RegistrationFirstStepCallback callback) {
         String secondPass = passwordSecond.get();
         if (secondPass == null || secondPass.isEmpty()) {
-            registrationHandler.onEmptySecondPassword();
+            callback.onEmptySecondPassword();
+            validatePassword(callback);
             return false;
         }
 
         String firstPass = password.get();
-        if (validatePassword() && !firstPass.equals(secondPass)) {
-            registrationHandler.onDifferentPasswords();
+        if (validatePassword(callback) && !firstPass.equals(secondPass)) {
+            callback.onDifferentPasswords();
             return false;
         }
         return true;
     }
 
-    public boolean validateFullName() {
+    public boolean validateFullName(RegistrationFirstStepCallback callback) {
         String name = fullName.get();
         if (name == null || name.isEmpty()) {
-            registrationHandler.onEmptyFullName();
+            callback.onEmptyFullName();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validatePhone(RegistrationSecondStepCallback callback) {
+        String phone = telephone.get();
+        if (phone == null || phone.isEmpty()) {
+            callback.onEmptyPhone();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validateAddress(RegistrationSecondStepCallback callback) {
+        String add = address.get();
+        if (add == null || add.isEmpty()) {
+            callback.onEmptyAddress();
             return false;
         }
         return true;
@@ -192,59 +235,59 @@ public class RegistrationVM extends BaseObservable implements Serializable {
         this.address = address;
     }
 
-    public ObservableField<Boolean> getIsBuyer() {
+    public ObservableBoolean getIsBuyer() {
         return isBuyer;
     }
 
-    public void setIsBuyer(ObservableField<Boolean> isBuyer) {
+    public void setIsBuyer(ObservableBoolean isBuyer) {
         this.isBuyer = isBuyer;
     }
 
-    public ObservableField<Integer> getExperience() {
+    public ObservableInt getExperience() {
         return experience;
     }
 
-    public void setExperience(ObservableField<Integer> experience) {
+    public void setExperience(ObservableInt experience) {
         this.experience = experience;
     }
 
-    public ObservableField<Boolean> getPlumbing() {
+    public ObservableBoolean getPlumbing() {
         return plumbing;
     }
 
-    public void setPlumbing(ObservableField<Boolean> plumbing) {
+    public void setPlumbing(ObservableBoolean plumbing) {
         this.plumbing = plumbing;
     }
 
-    public ObservableField<Boolean> getElectrical() {
+    public ObservableBoolean getElectrical() {
         return electrical;
     }
 
-    public void setElectrical(ObservableField<Boolean> electrical) {
+    public void setElectrical(ObservableBoolean electrical) {
         this.electrical = electrical;
     }
 
-    public ObservableField<Boolean> getFurniture() {
+    public ObservableBoolean getFurniture() {
         return furniture;
     }
 
-    public void setFurniture(ObservableField<Boolean> furniture) {
+    public void setFurniture(ObservableBoolean furniture) {
         this.furniture = furniture;
     }
 
-    public ObservableField<Boolean> getAc() {
+    public ObservableBoolean getAc() {
         return ac;
     }
 
-    public void setAc(ObservableField<Boolean> ac) {
+    public void setAc(ObservableBoolean ac) {
         this.ac = ac;
     }
 
-    public ObservableField<Boolean> getPaintJob() {
+    public ObservableBoolean getPaintJob() {
         return paintJob;
     }
 
-    public void setPaintJob(ObservableField<Boolean> paintJob) {
+    public void setPaintJob(ObservableBoolean paintJob) {
         this.paintJob = paintJob;
     }
 
@@ -252,8 +295,7 @@ public class RegistrationVM extends BaseObservable implements Serializable {
         return step;
     }
 
-    public void setStep(int step) {
-        this.step = step;
+    public String getExperienceText() {
+        return String.valueOf(experience.get());
     }
-
 }

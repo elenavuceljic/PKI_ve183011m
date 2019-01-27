@@ -10,9 +10,12 @@
     <string name="full_name">Full name</string>
     <string name="phone_number">Phone number</string>
     <string name="address">Address</string>
+    <string name="i_am">I am:</string>
     <string name="buyer">BUYER</string>
     <string name="handyman">HANDYMAN</string>
     <string name="next">NEXT</string>
+    <string name="back">BACK</string>
+    <string name="done">DONE</string>
     <string name="a_bit_longer">Just a bit longer…</string>
     <string name="last_step">Last step</string>
     <string name="years_experience">Years of experience</string>
@@ -22,7 +25,4 @@
     <string name="furniture_assemblly">Furniture assembly</string>
     <string name="a_c">Air conditioning</string>
     <string name="painting">Interior painting</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -6,27 +6,24 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 public class RegistrationPagerAdapter extends FragmentStatePagerAdapter {
 
-    private RegistrationVM registrationVM;
-
-    public RegistrationPagerAdapter(FragmentManager fm, RegistrationVM registrationVM) {
+    public RegistrationPagerAdapter(FragmentManager fm) {
         super(fm);
-        this.registrationVM = registrationVM;
     }
 
     @Override
     public int getCount() {
-        return 1;
+        return 3;
     }
 
     @Override
     public Fragment getItem(int i) {
         switch (i) {
+            case 0:
+                return RegistrationFirstStep.newInstance();
             case 1:
-//                return RegistrationSecondStep.newInstance(registrationVM);
-            case 2:
-//                return RegistrationThirdStep.newInstance(registrationVM);
+                return RegistrationSecondStep.newInstance();
             default:
-                return RegistrationFirstStep.newInstance(registrationVM);
+                return RegistrationThirdStep.newInstance();
         }
     }
 

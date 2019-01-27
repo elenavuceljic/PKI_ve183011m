@@ -1,21 +1,19 @@
 package com.example.ve183011m.pki_ve183011m.presentation.registration;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.ViewPager;
-import android.view.View;
 
 import com.example.ve183011m.pki_ve183011m.R;
 import com.example.ve183011m.pki_ve183011m.model.User;
+import com.example.ve183011m.pki_ve183011m.presentation.LockableViewPager;
 
 import static com.example.ve183011m.pki_ve183011m.presentation.login.LogInActivity.USER;
 
-public class RegistrationActivity extends FragmentActivity implements RegistrationHandler, RegistrationSecondStep.OnFragmentInteractionListener, RegistrationThirdStep.OnFragmentInteractionListener {
+public class RegistrationActivity extends FragmentActivity implements RegistrationHandler {
 
-    public RegistrationVM registrationVM;
-    private RegistrationPagerAdapter registrationPagerAdapter;
+    RegistrationVM registrationVM;
+    private LockableViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,74 +21,15 @@ public class RegistrationActivity extends FragmentActivity implements Registrati
         setContentView(R.layout.activity_registration);
 
         registrationVM = new RegistrationVM(this);
-        registrationPagerAdapter = new RegistrationPagerAdapter(getSupportFragmentManager(), registrationVM);
+        RegistrationPagerAdapter registrationPagerAdapter = new RegistrationPagerAdapter(getSupportFragmentManager());
 
-        ViewPager mPager = findViewById(R.id.registration_pager);
-        mPager.setAdapter(registrationPagerAdapter);
-
-//        editTextConfig(binding);
-//        binding.nextButton.setOnClickListener(getLogInOnClickListener());
+        viewPager = findViewById(R.id.registration_pager);
+        viewPager.setAdapter(registrationPagerAdapter);
+        viewPager.setSwipeable(false);
     }
-
-    private View.OnClickListener getLogInOnClickListener() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                registrationVM.nextStep();
-            }
-        };
-    }
-
-//    private void editTextConfig(final ActivityRegistrationBinding binding) {
-//        binding.etUsername.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View view, boolean isFocused) {
-//                if (isFocused) {
-//                    binding.usernameWrapper.setError(null);
-//                } else {
-//                    registrationVM.validateUsername();
-//                }
-//            }
-//        });
-//        binding.etPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View view, boolean isFocused) {
-//                if (isFocused) {
-//                    binding.passwordWrapper.setError(null);
-//                } else {
-//                    registrationVM.validatePassword();
-//                }
-//            }
-//        });
-//        binding.etSecondPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View view, boolean isFocused) {
-//                if (isFocused) {
-//                    binding.secondPasswordWrapper.setError(null);
-//                } else {
-//                    registrationVM.validateSecondPassword();
-//                }
-//            }
-//        });
-//        binding.etFullName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View view, boolean isFocused) {
-//                if (isFocused) {
-//                    binding.fullNameWrapper.setError(null);
-//                } else {
-//                    registrationVM.validateFullName();
-//                }
-//            }
-//        });
-//    }
 
     @Override
     public void onRegister(User user) {
-//        binding.usernameWrapper.setError(null);
-//        binding.passwordWrapper.setError(null);
-//        binding.secondPasswordWrapper.setError(null);
-//        binding.fullNameWrapper.setError(null);
-//        //TODO: add wrappers setnull
         Intent intent = new Intent(this, RegistrationActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra(USER, user);
@@ -99,33 +38,26 @@ public class RegistrationActivity extends FragmentActivity implements Registrati
     }
 
     @Override
-    public void onEmptyUsername() {
-
-//        binding.usernameWrapper.setError("Enter username");
+    public void onBackPressed() {
+        if (viewPager.getCurrentItem() == 0) {
+            super.onBackPressed();
+        } else {
+            viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
+        }
     }
 
     @Override
-    public void onEmptyPassword() {
-//        binding.passwordWrapper.setError("Enter password");
+    public void onNext() {
+        if (registrationVM.getStep() < 3) {
+            viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+        }
     }
 
     @Override
-    public void onEmptySecondPassword() {
-//        binding.secondPasswordWrapper.setError("Enter password");
+    public void onBack() {
+        if (registrationVM.getStep() > 0) {
+            viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
+        }
     }
 
-    @Override
-    public void onDifferentPasswords() {
-//        binding.secondPasswordWrapper.setError("Different passwords");
-    }
-
-    @Override
-    public void onEmptyFullName() {
-//        binding.fullNameWrapper.setError("Enter full name");
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
 }
