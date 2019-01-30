@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
-    tools:context=".presentation.buyer.SearchHandymenFragment">
+    tools:context=".presentation.buyer.SearchHandymenFragment"
+    android:name="com.example.ve183011m.pki_ve183011m.presentation.buyer.SearchHandymenFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/search_handymen_list"
-        android:name="com.example.ve183011m.pki_ve183011m.presentation.buyer.SearchHandymenFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="LinearLayoutManager"

@@ -11,10 +11,9 @@ public class UserManager {
 
     private ArrayList<User> users = new ArrayList<User>() {{
         add(new User("buyer", "buyer", "John Doe", "064555333",
-                "Sunset Boulevard 13", true));
+                "Sunset Boulevard 13", true, 0, null));
         add(new User("handy", "handy", "Jane Doe", "064555444",
-                "Moonlight Boulevard 13", false, 12, true,
-                true, false, false, true));
+                "Moonlight Boulevard 13", false, 12, null));
     }};
 
     private UserManager() {

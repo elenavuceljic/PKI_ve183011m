@@ -1,6 +1,7 @@
 package com.example.ve183011m.pki_ve183011m.model;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 public class User implements Serializable {
@@ -12,25 +13,10 @@ public class User implements Serializable {
     private String address;
     private Boolean isBuyer;
     private int experience;
-    private boolean knowsPlumbing;
-    private boolean knowsElectrical;
-    private boolean knowsFurniture;
-    private boolean knowsAC;
-    private boolean knowsPainting;
+    private List<Job> skills;
 
     public User(String username, String password, String fullName, String telephone, String address,
-                Boolean isBuyer) {
-        this.username = username;
-        this.password = password;
-        this.fullName = fullName;
-        this.telephone = telephone;
-        this.address = address;
-        this.isBuyer = isBuyer;
-    }
-
-    public User(String username, String password, String fullName, String telephone, String address,
-                Boolean isBuyer, int experience, boolean knowsPlumbing, boolean knowsElectrical,
-                boolean knowsFurniture, boolean knowsAC, boolean knowsPainting) {
+                Boolean isBuyer, int experience, List<Job> skills) {
         this.username = username;
         this.password = password;
         this.fullName = fullName;
@@ -38,11 +24,7 @@ public class User implements Serializable {
         this.address = address;
         this.isBuyer = isBuyer;
         this.experience = experience;
-        this.knowsPlumbing = knowsPlumbing;
-        this.knowsElectrical = knowsElectrical;
-        this.knowsFurniture = knowsFurniture;
-        this.knowsAC = knowsAC;
-        this.knowsPainting = knowsPainting;
+        this.skills = skills;
     }
 
     public String getUsername() {
@@ -99,46 +81,6 @@ public class User implements Serializable {
 
     public void setExperience(int experience) {
         this.experience = experience;
-    }
-
-    public boolean isKnowsPlumbing() {
-        return knowsPlumbing;
-    }
-
-    public void setKnowsPlumbing(boolean knowsPlumbing) {
-        this.knowsPlumbing = knowsPlumbing;
-    }
-
-    public boolean isKnowsElectrical() {
-        return knowsElectrical;
-    }
-
-    public void setKnowsElectrical(boolean knowsElectrical) {
-        this.knowsElectrical = knowsElectrical;
-    }
-
-    public boolean isKnowsFurniture() {
-        return knowsFurniture;
-    }
-
-    public void setKnowsFurniture(boolean knowsFurniture) {
-        this.knowsFurniture = knowsFurniture;
-    }
-
-    public boolean isKnowsAC() {
-        return knowsAC;
-    }
-
-    public void setKnowsAC(boolean knowsAC) {
-        this.knowsAC = knowsAC;
-    }
-
-    public boolean isKnowsPainting() {
-        return knowsPainting;
-    }
-
-    public void setKnowsPainting(boolean knowsPainting) {
-        this.knowsPainting = knowsPainting;
     }
 
     @Override
