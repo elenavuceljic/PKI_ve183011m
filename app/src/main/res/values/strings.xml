@@ -40,7 +40,7 @@
     <string name="profile">PROFILE</string>
     <string name="handyman_preview">Handyman preview</string>
     <string name="new_request">New request</string>
-    <string name="request_preview">Request preview</string>
+    <string name="request_preview">Request Preview</string>
     <string name="requests">REQUESTS</string>
     <string name="map">MAP</string>
     <string name="save">SAVE</string>
@@ -59,7 +59,6 @@
     <string name="pay">Pay</string>
     <string name="jobs">Jobs</string>
     <string name="reviews">Reviews</string>
-    <string name="urgency">Urgency</string>
     <string name="start_date">Start date</string>
     <string name="end_date">End date</string>
     <string name="payment">Payment method</string>
@@ -71,12 +70,15 @@
     <string name="expiration_date">Expiration date</string>
     <string name="cvv">CVV</string>
     <string name="pay_btn">PAY</string>
-    <string name="rate">Rate</string>
     <string name="leave_review">Leave a review</string>
     <string name="old_pass">Old password</string>
     <string name="new_pass">New password</string>
     <string name="client">Client</string>
     <string name="search_by">Search by:</string>
     <string name="distance">Distance</string>
+    <string name="payment_method">Payment\nmethod</string>
+    <string name="urgency">Urgency</string>
+    <string name="rate">Rate</string>
+    <string name="review">Review</string>
 
 </resources>
