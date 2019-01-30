@@ -20,9 +20,12 @@ import android.widget.TextView;
 import com.example.ve183011m.pki_ve183011m.R;
 import com.example.ve183011m.pki_ve183011m.databinding.ActivityBuyerMainBinding;
 import com.example.ve183011m.pki_ve183011m.model.User;
+import com.example.ve183011m.pki_ve183011m.presentation.buyer.history.HandymenHistoryFragment;
+import com.example.ve183011m.pki_ve183011m.presentation.buyer.profile.HandymanProfileFragment;
+import com.example.ve183011m.pki_ve183011m.presentation.buyer.search.SearchHandymenFragment;
 import com.example.ve183011m.pki_ve183011m.presentation.login.LogInActivity;
 
-public class BuyerMainActivity extends AppCompatActivity implements SearchHandymenFragment.OnListFragmentInteractionListener, HandymenHistoryFragment.OnListFragmentInteractionListener {
+public class BuyerMainActivity extends AppCompatActivity implements SearchHandymenFragment.OnListFragmentInteractionListener, HandymenHistoryFragment.OnListFragmentInteractionListener, HandymanProfileFragment.HandymanProfileFragmentCallback {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -120,6 +123,16 @@ public class BuyerMainActivity extends AppCompatActivity implements SearchHandym
 
     }
 
+    @Override
+    public void onHandymanSaved(User handyman) {
+
+    }
+
+    @Override
+    public void onHandymanCanceled() {
+
+    }
+
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -171,8 +184,7 @@ public class BuyerMainActivity extends AppCompatActivity implements SearchHandym
                     return HandymenHistoryFragment.newInstance();
                 }
                 case 2: {
-
-                    break;
+                    return HandymanProfileFragment.newInstance(null);
                 }
                 case 3: {
 

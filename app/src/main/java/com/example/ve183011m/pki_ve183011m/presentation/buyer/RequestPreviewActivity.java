@@ -11,10 +11,10 @@ import android.widget.TextView;
 
 import com.example.ve183011m.pki_ve183011m.R;
 import com.example.ve183011m.pki_ve183011m.databinding.ActivityRequestPreviewBinding;
+import com.example.ve183011m.pki_ve183011m.databinding.ViewInputRowBinding;
 import com.example.ve183011m.pki_ve183011m.databinding.ViewRequestPaymentMethodBinding;
 import com.example.ve183011m.pki_ve183011m.databinding.ViewRequestPreviewItemBinding;
 import com.example.ve183011m.pki_ve183011m.databinding.ViewRequestRatingBinding;
-import com.example.ve183011m.pki_ve183011m.databinding.ViewRequestReviewBinding;
 import com.example.ve183011m.pki_ve183011m.databinding.ViewRequestUrgencyBinding;
 
 public class RequestPreviewActivity extends AppCompatActivity {
@@ -98,12 +98,12 @@ public class RequestPreviewActivity extends AppCompatActivity {
     }
 
     private View inflatePreviewReviewView(String review) {
-        ViewRequestReviewBinding itemBinding = DataBindingUtil.inflate(LayoutInflater.from(this),
-                R.layout.view_request_review, null, false);
+        ViewInputRowBinding itemBinding = DataBindingUtil.inflate(LayoutInflater.from(this),
+                R.layout.view_input_row, null, false);
 
-        itemBinding.reviewEditText.setText(review);
+        itemBinding.inputEditText.setText(review);
 
-        itemBinding.reviewEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        itemBinding.inputEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 return false;

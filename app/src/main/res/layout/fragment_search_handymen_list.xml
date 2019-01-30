@@ -2,12 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:name="com.example.ve183011m.pki_ve183011m.presentation.buyer.SearchHandymenFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
-    tools:context=".presentation.buyer.SearchHandymenFragment"
-    android:name="com.example.ve183011m.pki_ve183011m.presentation.buyer.SearchHandymenFragment">
+    tools:context=".presentation.buyer.search.SearchHandymenFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/search_handymen_list"

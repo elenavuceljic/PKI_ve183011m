@@ -1,4 +1,4 @@
-package com.example.ve183011m.pki_ve183011m.presentation.buyer;
+package com.example.ve183011m.pki_ve183011m.presentation.buyer.search;
 
 import android.content.Context;
 import android.os.Bundle;

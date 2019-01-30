@@ -1,4 +1,4 @@
-package com.example.ve183011m.pki_ve183011m.presentation.buyer;
+package com.example.ve183011m.pki_ve183011m.presentation.buyer.history;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,16 +8,16 @@ import android.widget.TextView;
 
 import com.example.ve183011m.pki_ve183011m.R;
 import com.example.ve183011m.pki_ve183011m.model.User;
-import com.example.ve183011m.pki_ve183011m.presentation.buyer.SearchHandymenFragment.OnListFragmentInteractionListener;
+import com.example.ve183011m.pki_ve183011m.presentation.buyer.history.HandymenHistoryFragment.OnListFragmentInteractionListener;
 
 import java.util.List;
 
-public class SearchHandymenRecyclerViewAdapter extends RecyclerView.Adapter<SearchHandymenRecyclerViewAdapter.ViewHolder> {
+public class HandymenHistoryRecyclerViewAdapter extends RecyclerView.Adapter<HandymenHistoryRecyclerViewAdapter.ViewHolder> {
 
     private final List<User> handymenList;
     private final OnListFragmentInteractionListener mListener;
 
-    public SearchHandymenRecyclerViewAdapter(List<User> items, OnListFragmentInteractionListener listener) {
+    public HandymenHistoryRecyclerViewAdapter(List<User> items, OnListFragmentInteractionListener listener) {
         handymenList = items;
         mListener = listener;
     }
@@ -25,7 +25,7 @@ public class SearchHandymenRecyclerViewAdapter extends RecyclerView.Adapter<Sear
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_search_handymen, parent, false);
+                .inflate(R.layout.fragment_handymen_history, parent, false);
         return new ViewHolder(view);
     }
 
@@ -61,8 +61,8 @@ public class SearchHandymenRecyclerViewAdapter extends RecyclerView.Adapter<Sear
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = view.findViewById(R.id.handyman_name);
-            mContentView = view.findViewById(R.id.handyman_rating);
+            mIdView = view.findViewById(R.id.history_handyman_full_name);
+            mContentView = view.findViewById(R.id.history_handyman_rating);
         }
 
         @Override
