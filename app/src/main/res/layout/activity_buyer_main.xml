@@ -1,75 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_content"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".presentation.buyer.BuyerMainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
+    <LinearLayout
+        android:id="@+id/main_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:paddingTop="@dimen/appbar_padding_top"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        tools:context=".presentation.buyer.BuyerMainActivity">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:layout_weight="1"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="@string/app_name">
-
-        </android.support.v7.widget.Toolbar>
+            android:background="@color/colorAccent"
+            android:paddingTop="@dimen/appbar_padding_top"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:title="@string/app_name" />
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:theme="@style/AppTheme.AppBarOverlay">
 
             <android.support.design.widget.TabItem
                 android:id="@+id/tab_search_handymen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/search"
-                android:tag="@string/search"/>
+                android:tag="@string/handyman"
+                android:text="@string/handyman" />
 
             <android.support.design.widget.TabItem
-                android:id="@+id/tab_history"
+                android:id="@+id/tab_requests"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/history" />
-
-            <android.support.design.widget.TabItem
-                android:id="@+id/tab_active_requests"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/active_requests" />
-
-            <android.support.design.widget.TabItem
-                android:id="@+id/tab_closed_requests"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/closed_requests" />
+                android:tag="@string/requests"
+                android:text="@string/requests" />
 
             <android.support.design.widget.TabItem
                 android:id="@+id/tab_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:tag="@string/profile"
                 android:text="@string/profile" />
 
         </android.support.design.widget.TabLayout>
-    </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        <LinearLayout
+            android:id="@+id/holder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-</android.support.design.widget.CoordinatorLayout>
+            <android.support.v4.view.ViewPager
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="9" />
+
+            <android.support.design.widget.BottomNavigationView
+                android:id="@+id/bottom_requests_navigation"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_weight="1"
+                android:background="?android:attr/windowBackground"
+                android:visibility="gone"
+                app:menu="@menu/bottom_navigation" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>
