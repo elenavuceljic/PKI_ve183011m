@@ -10,6 +10,8 @@ import android.widget.Toast;
 import com.example.ve183011m.pki_ve183011m.R;
 import com.example.ve183011m.pki_ve183011m.databinding.ActivityLogInBinding;
 import com.example.ve183011m.pki_ve183011m.model.User;
+import com.example.ve183011m.pki_ve183011m.presentation.buyer.BuyerMainActivity;
+import com.example.ve183011m.pki_ve183011m.presentation.handyman.HandymanMainActivity;
 import com.example.ve183011m.pki_ve183011m.presentation.registration.RegistrationActivity;
 
 
@@ -88,7 +90,11 @@ public class LogInActivity extends AppCompatActivity implements LoginHandler {
     public void onLoginSuccess(User user) {
         binding.usernameWrapper.setError(null);
         binding.passwordWrapper.setError(null);
-        Intent intent = new Intent(this, RegistrationActivity.class);
+        Intent intent;
+        if (user.getBuyer())
+            intent = new Intent(this, BuyerMainActivity.class);
+        else
+            intent = new Intent(this, HandymanMainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra(USER, user);
         startActivity(intent);
@@ -115,14 +121,13 @@ public class LogInActivity extends AppCompatActivity implements LoginHandler {
     @Override
     public void onRegister() {
         Intent intent = new Intent(this, RegistrationActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-        finish();
     }
 
     @Override
     public void onContinueAsGuest() {
-        Intent intent = new Intent(this, RegistrationActivity.class);
+        Intent intent = new Intent(this, BuyerMainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();

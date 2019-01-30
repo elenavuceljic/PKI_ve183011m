@@ -77,7 +77,8 @@ public class RegistrationVM extends BaseObservable implements Serializable {
             case 1: {
                 step++;
                 if (isBuyer.get()) {
-                    User user = new User(username.get(), password.get());
+                    User user = new User(username.get(), password.get(), fullName.get(), address.get()
+                            , telephone.get(), isBuyer.get());
                     userManager.addUser(user);
                     registrationHandler.onRegister(user);
                 } else {
@@ -86,7 +87,9 @@ public class RegistrationVM extends BaseObservable implements Serializable {
                 break;
             }
             case 2: {
-                User user = new User(username.get(), password.get());
+                User user = new User(username.get(), password.get(), fullName.get(), address.get(),
+                        telephone.get(), isBuyer.get(), experience.get(), plumbing.get(),
+                        electrical.get(), furniture.get(), ac.get(), paintJob.get());
                 userManager.addUser(user);
                 registrationHandler.onRegister(user);
                 break;

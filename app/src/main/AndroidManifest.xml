@@ -10,8 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".presentation.handyman.HandymanMainActivity"
+            android:label="@string/title_activity_handyman_main"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".presentation.buyer.BuyerMainActivity"
+            android:label="@string/title_activity_buyer_main"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".presentation.registration.RegistrationActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.login.LogInActivity"
             android:screenOrientation="portrait">

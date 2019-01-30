@@ -23,8 +23,8 @@ public class LogInVM extends BaseObservable {
 
     public void login() {
         if (validateLogInInput()) {
-            User user = new User(username.get(), password.get());
-            if (userManager.containsUser(user)) {
+            User user = userManager.getUserWithCredentials(username.get(), password.get());
+            if (user != null) {
                 loginHandler.onLoginSuccess(user);
             } else {
                 loginHandler.onLoginFail();
