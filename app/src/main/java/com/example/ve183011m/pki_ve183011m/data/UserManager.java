@@ -3,6 +3,7 @@ package com.example.ve183011m.pki_ve183011m.data;
 import com.example.ve183011m.pki_ve183011m.model.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserManager {
 
@@ -35,5 +36,17 @@ public class UserManager {
 
     public void addUser(User user) {
         users.add(user);
+    }
+
+    public List<User> getHandymen() {
+        List<User> handymen = new ArrayList<>();
+
+        for (User u: users) {
+            if (u.getBuyer()) {
+                handymen.add(u);
+            }
+        }
+
+        return handymen;
     }
 }
