@@ -79,11 +79,11 @@ public class RegistrationSecondStep extends Fragment implements RegistrationVM.R
 
     @Override
     public void onEmptyPhone() {
-        binding.phoneWrapper.setError("Enter phone number");
+        binding.phoneWrapper.setError(getString(R.string.enter_phone));
     }
 
     @Override
     public void onEmptyAddress() {
-        binding.addressWrapper.setError("Enter address");
+        binding.addressWrapper.setError(getString(R.string.enter_address));
     }
 }

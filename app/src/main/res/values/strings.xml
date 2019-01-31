@@ -84,5 +84,11 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="price">Price</string>
-
+    <string name="empty"></string>
+    <string name="enter_phone">Enter phone number</string>
+    <string name="enter_address">Enter address</string>
+    <string name="enter_username">Enter username</string>
+    <string name="enter_password">Enter password</string>
+    <string name="passwords_dont_match">Passwords don\'t match</string>
+    <string name="enter_name">Enter full name</string>
 </resources>

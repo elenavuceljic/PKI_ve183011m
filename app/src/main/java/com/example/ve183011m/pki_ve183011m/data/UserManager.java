@@ -41,7 +41,13 @@ public class UserManager implements Serializable {
     }
 
     public void addUser(User user) {
-        users.add(user);
+        int index = users.indexOf(user);
+        if (index == -1)
+            users.add(user);
+        else {
+            users.remove(index);
+            users.add(user);
+        }
     }
 
     public List<User> getHandymen() {

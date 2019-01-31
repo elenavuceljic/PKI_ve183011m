@@ -93,26 +93,26 @@ public class RegistrationFirstStep extends Fragment implements RegistrationVM.Re
 
     @Override
     public void onEmptyUsername() {
-        binding.usernameWrapper.setError("Enter username");
+        binding.usernameWrapper.setError(getString(R.string.enter_username));
     }
 
     @Override
     public void onEmptyPassword() {
-        binding.passwordWrapper.setError("Enter password");
+        binding.passwordWrapper.setError(getString(R.string.enter_password));
     }
 
     @Override
     public void onEmptySecondPassword() {
-        binding.secondPasswordWrapper.setError("Enter password");
+        binding.secondPasswordWrapper.setError(getString(R.string.enter_password));
     }
 
     @Override
     public void onDifferentPasswords() {
-        binding.secondPasswordWrapper.setError("Passwords don't match");
+        binding.secondPasswordWrapper.setError(getString(R.string.passwords_dont_match));
     }
 
     @Override
     public void onEmptyFullName() {
-        binding.fullNameWrapper.setError("Enter full name");
+        binding.fullNameWrapper.setError(getString(R.string.enter_name));
     }
 }

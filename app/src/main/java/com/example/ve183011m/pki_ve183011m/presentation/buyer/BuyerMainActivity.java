@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ve183011m.pki_ve183011m.R;
 import com.example.ve183011m.pki_ve183011m.databinding.ActivityBuyerMainBinding;
@@ -25,23 +26,24 @@ import com.example.ve183011m.pki_ve183011m.presentation.buyer.profile.HandymanPr
 import com.example.ve183011m.pki_ve183011m.presentation.buyer.search.SearchHandymenFragment;
 import com.example.ve183011m.pki_ve183011m.presentation.login.LogInActivity;
 
+import static com.example.ve183011m.pki_ve183011m.presentation.login.LogInActivity.USER;
+
 public class BuyerMainActivity extends AppCompatActivity implements SearchHandymenFragment.OnListFragmentInteractionListener, HandymenHistoryFragment.OnListFragmentInteractionListener, HandymanProfileFragment.HandymanProfileFragmentCallback {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     private ActivityBuyerMainBinding binding;
 
-    private User user;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_buyer_main);
 
+        User user = (User) getIntent().getSerializableExtra(USER);
+
         setSupportActionBar(binding.toolbar);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), user);
         binding.container.setAdapter(mSectionsPagerAdapter);
 
         binding.container.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(binding.tabs));
@@ -119,53 +121,16 @@ public class BuyerMainActivity extends AppCompatActivity implements SearchHandym
 
     @Override
     public void onHandymanSaved(User handyman) {
-
-    }
-
-    @Override
-    public void onHandymanCanceled() {
-
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_buyer_main, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
-        }
+        Toast.makeText(this, "Saved changes", Toast.LENGTH_LONG).show();
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        private final User user;
+
+        public SectionsPagerAdapter(FragmentManager fm, User user) {
             super(fm);
+            this.user = user;
         }
 
         @Override
@@ -177,23 +142,15 @@ public class BuyerMainActivity extends AppCompatActivity implements SearchHandym
                 case 1: {
                     return HandymenHistoryFragment.newInstance();
                 }
-                case 2: {
-                    return HandymanProfileFragment.newInstance(null);
-                }
-                case 3: {
-
-                    break;
-                }
                 default: {
-
+                    return HandymanProfileFragment.newInstance(user);
                 }
             }
-            return PlaceholderFragment.newInstance(position + 1);
         }
 
         @Override
         public int getCount() {
-            return 5;
+            return 3;
         }
     }
 }
