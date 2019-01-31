@@ -3,11 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.example.ve183011m.pki_ve183011m.presentation.LockableViewPager
+    <com.example.ve183011m.pki_ve183011m.util.LockableViewPager
         android:id="@+id/registration_pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    </com.example.ve183011m.pki_ve183011m.presentation.LockableViewPager>
+    </com.example.ve183011m.pki_ve183011m.util.LockableViewPager>
 
 </FrameLayout>

@@ -1,4 +1,4 @@
-package com.example.ve183011m.pki_ve183011m.presentation;
+package com.example.ve183011m.pki_ve183011m.util;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;

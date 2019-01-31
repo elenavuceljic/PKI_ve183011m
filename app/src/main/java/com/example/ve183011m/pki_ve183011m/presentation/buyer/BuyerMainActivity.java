@@ -27,17 +27,11 @@ import com.example.ve183011m.pki_ve183011m.presentation.login.LogInActivity;
 
 public class BuyerMainActivity extends AppCompatActivity implements SearchHandymenFragment.OnListFragmentInteractionListener, HandymenHistoryFragment.OnListFragmentInteractionListener, HandymanProfileFragment.HandymanProfileFragmentCallback {
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     private ActivityBuyerMainBinding binding;
+
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -5,8 +5,9 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
 import com.example.ve183011m.pki_ve183011m.R;
+import com.example.ve183011m.pki_ve183011m.model.Handyman;
 import com.example.ve183011m.pki_ve183011m.model.User;
-import com.example.ve183011m.pki_ve183011m.presentation.LockableViewPager;
+import com.example.ve183011m.pki_ve183011m.util.LockableViewPager;
 import com.example.ve183011m.pki_ve183011m.presentation.buyer.BuyerMainActivity;
 import com.example.ve183011m.pki_ve183011m.presentation.handyman.HandymanMainActivity;
 
@@ -33,10 +34,10 @@ public class RegistrationActivity extends FragmentActivity implements Registrati
     @Override
     public void onRegister(User user) {
         Intent intent;
-        if (user.getBuyer()) {
-            intent = new Intent(this, BuyerMainActivity.class);
-        } else {
+        if (user instanceof Handyman) {
             intent = new Intent(this, HandymanMainActivity.class);
+        } else {
+            intent = new Intent(this, BuyerMainActivity.class);
         }
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra(USER, user);

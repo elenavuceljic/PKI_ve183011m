@@ -9,13 +9,16 @@ import android.widget.Toast;
 
 import com.example.ve183011m.pki_ve183011m.R;
 import com.example.ve183011m.pki_ve183011m.databinding.ActivityLogInBinding;
+import com.example.ve183011m.pki_ve183011m.model.Handyman;
 import com.example.ve183011m.pki_ve183011m.model.User;
 import com.example.ve183011m.pki_ve183011m.presentation.buyer.BuyerMainActivity;
 import com.example.ve183011m.pki_ve183011m.presentation.handyman.HandymanMainActivity;
 import com.example.ve183011m.pki_ve183011m.presentation.registration.RegistrationActivity;
 
+import java.io.Serializable;
 
-public class LogInActivity extends AppCompatActivity implements LoginHandler {
+
+public class LogInActivity extends AppCompatActivity implements LoginHandler, Serializable {
 
     public static final String USER = "USER";
 
@@ -91,10 +94,10 @@ public class LogInActivity extends AppCompatActivity implements LoginHandler {
         binding.usernameWrapper.setError(null);
         binding.passwordWrapper.setError(null);
         Intent intent;
-        if (user.getBuyer())
-            intent = new Intent(this, BuyerMainActivity.class);
-        else
+        if (user instanceof Handyman)
             intent = new Intent(this, HandymanMainActivity.class);
+        else
+            intent = new Intent(this, BuyerMainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra(USER, user);
         startActivity(intent);

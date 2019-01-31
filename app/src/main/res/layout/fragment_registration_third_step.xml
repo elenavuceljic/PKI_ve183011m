@@ -35,7 +35,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:paddingTop="70dp"
-            android:text="@string/years_experience" />
+            android:text="@string/years_experience"
+            android:textAlignment="center"/>
 
         <NumberPicker
             android:id="@+id/np"
@@ -50,61 +51,163 @@
             android:layout_gravity="center"
             android:paddingTop="20dp"
             android:text="@string/skills"
-            android:textColor="@color/colorText" />
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:checked="@={vm.plumbing}"
-            android:text="@string/plumbing"
-            android:textColor="@color/colorText" />
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:checked="@={vm.electrical}"
-            android:text="@string/electrical_installations"
-            android:textColor="@color/colorText" />
-
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:checked="@={vm.furniture}"
-            android:text="@string/furniture_assemblly"
-            android:textColor="@color/colorText" />
-
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:checked="@={vm.ac}"
-            android:text="@string/a_c"
-            android:textColor="@color/colorText" />
-
-
-        <CheckBox
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:checked="@={vm.paintJob}"
-            android:text="@string/painting"
+            android:textAlignment="center"
             android:textColor="@color/colorText" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="20dp">
+            android:layout_marginStart="36dp"
+            android:layout_marginEnd="36dp">
+
+            <CheckBox
+                android:id="@+id/plumbing_cb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="20dp"
+                android:checked="@={vm.plumbing}"
+                android:text="@string/plumbing"
+                android:textColor="@color/colorText" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/plumbing_price_wrapper"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/et_plumbing_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@color/colorAccent"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:singleLine="true"
+                    android:text="@={vm.plumbingPrice}"
+                    android:textColorHint="@color/colorTextSecondary" />
+            </android.support.design.widget.TextInputLayout>
+
+            <CheckBox
+                android:id="@+id/electrical_cb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:checked="@={vm.electrical}"
+                android:text="@string/electrical_installations"
+                android:textColor="@color/colorText"
+                android:layout_below="@id/plumbing_cb"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/electrical_price_wrapper"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignBottom="@id/electrical_cb">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/et_electrical_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@color/colorAccent"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:singleLine="true"
+                    android:text="@={vm.electricalPrice}"
+                    android:textColorHint="@color/colorTextSecondary" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <CheckBox
+                android:id="@+id/furniture_cb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:checked="@={vm.furniture}"
+                android:text="@string/furniture_assemblly"
+                android:textColor="@color/colorText"
+                android:layout_below="@id/electrical_cb"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/furniture_price_wrapper"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignBottom="@id/furniture_cb">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/et_furniture_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@color/colorAccent"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:singleLine="true"
+                    android:text="@={vm.furniturePrice}"
+                    android:textColorHint="@color/colorTextSecondary" />
+            </android.support.design.widget.TextInputLayout>
+
+            <CheckBox
+                android:id="@+id/ac_cb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:checked="@={vm.ac}"
+                android:text="@string/a_c"
+                android:textColor="@color/colorText"
+                android:layout_below="@id/furniture_cb"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/ac_price_wrapper"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignBottom="@id/ac_cb">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/et_ac_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@color/colorAccent"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:singleLine="true"
+                    android:text="@={vm.acPrice}"
+                    android:textColorHint="@color/colorTextSecondary" />
+            </android.support.design.widget.TextInputLayout>
+
+            <CheckBox
+                android:id="@+id/paint_job_cb"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:checked="@={vm.paintJob}"
+                android:text="@string/painting"
+                android:textColor="@color/colorText"
+                android:layout_below="@id/ac_cb"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/paint_job_price_wrapper"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignBottom="@id/paint_job_cb">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/paint_job_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@color/colorAccent"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:singleLine="true"
+                    android:text="@={vm.paintJobPrice}"
+                    android:textColorHint="@color/colorTextSecondary" />
+            </android.support.design.widget.TextInputLayout>
 
             <Button
                 android:id="@+id/back_button"
@@ -114,7 +217,10 @@
                 android:layout_marginStart="30dp"
                 android:background="@color/colorAccent"
                 android:text="@string/back"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="20dp"
+                android:layout_below="@id/paint_job_cb"/>
 
             <Button
                 android:id="@+id/done_button"
@@ -124,7 +230,8 @@
                 android:layout_marginEnd="30dp"
                 android:background="@color/colorAccent"
                 android:text="@string/done"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="@color/colorPrimary"
+                android:layout_alignBottom="@id/back_button"/>
 
         </RelativeLayout>
 

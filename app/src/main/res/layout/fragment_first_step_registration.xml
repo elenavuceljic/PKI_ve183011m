@@ -104,7 +104,7 @@
                     android:backgroundTint="@color/colorAccent"
                     android:hint="@string/full_name"
                     android:imeOptions="actionDone"
-                    android:inputType="textPassword"
+                    android:inputType="textPersonName"
                     android:singleLine="true"
                     android:text="@={vm.fullName}"
                     android:textColorHint="@color/colorTextSecondary" />

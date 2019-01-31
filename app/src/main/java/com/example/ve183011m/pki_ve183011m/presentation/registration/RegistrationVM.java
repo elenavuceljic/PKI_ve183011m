@@ -1,14 +1,19 @@
 package com.example.ve183011m.pki_ve183011m.presentation.registration;
 
 import android.databinding.BaseObservable;
+import android.databinding.Observable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.databinding.ObservableFloat;
 import android.databinding.ObservableInt;
 
 import com.example.ve183011m.pki_ve183011m.data.UserManager;
+import com.example.ve183011m.pki_ve183011m.model.Handyman;
+import com.example.ve183011m.pki_ve183011m.model.Job;
 import com.example.ve183011m.pki_ve183011m.model.User;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class RegistrationVM extends BaseObservable implements Serializable {
 
@@ -42,10 +47,15 @@ public class RegistrationVM extends BaseObservable implements Serializable {
     private ObservableBoolean isBuyer;
     private ObservableInt experience;
     private ObservableBoolean plumbing;
+    private ObservableFloat plumbingPrice;
     private ObservableBoolean electrical;
+    private ObservableFloat electricalPrice;
     private ObservableBoolean furniture;
+    private ObservableFloat furniturePrice;
     private ObservableBoolean ac;
+    private ObservableFloat acPrice;
     private ObservableBoolean paintJob;
+    private ObservableFloat paintJobPrice;
 
     private int step = 0;
 
@@ -65,6 +75,11 @@ public class RegistrationVM extends BaseObservable implements Serializable {
         furniture = new ObservableBoolean();
         ac = new ObservableBoolean();
         paintJob = new ObservableBoolean();
+        plumbingPrice = new ObservableFloat();
+        electricalPrice = new ObservableFloat();
+        furniturePrice = new ObservableFloat();
+        acPrice = new ObservableFloat();
+        paintJobPrice = new ObservableFloat();
     }
 
     public void next() {
@@ -78,7 +93,7 @@ public class RegistrationVM extends BaseObservable implements Serializable {
                 step++;
                 if (isBuyer.get()) {
                     User user = new User(username.get(), password.get(), fullName.get(), address.get()
-                            , telephone.get(), isBuyer.get(), 0, null);
+                            , telephone.get());
                     userManager.addUser(user);
                     registrationHandler.onRegister(user);
                 } else {
@@ -87,8 +102,24 @@ public class RegistrationVM extends BaseObservable implements Serializable {
                 break;
             }
             case 2: {
-                User user = new User(username.get(), password.get(), fullName.get(), address.get(),
-                        telephone.get(), isBuyer.get(), experience.get(), null);
+                ArrayList<Job> skills = new ArrayList<>();
+                if (plumbing.get()) {
+                    skills.add(new Job("Plumbing", plumbingPrice.get()));
+                }
+                if (electrical.get()) {
+                    skills.add(new Job("Electrical installations", electricalPrice.get()));
+                }
+                if (furniture.get()) {
+                    skills.add(new Job("Furniture assembly", furniturePrice.get()));
+                }
+                if (ac.get()) {
+                    skills.add(new Job("Air conditioning", acPrice.get()));
+                }
+                if (paintJob.get()) {
+                    skills.add(new Job("Interior painting", paintJobPrice.get()));
+                }
+                Handyman user = new Handyman(username.get(), password.get(), fullName.get(), address.get(),
+                        telephone.get(), experience.get(), skills);
                 userManager.addUser(user);
                 registrationHandler.onRegister(user);
                 break;
@@ -299,5 +330,45 @@ public class RegistrationVM extends BaseObservable implements Serializable {
 
     public String getExperienceText() {
         return String.valueOf(experience.get());
+    }
+
+    public ObservableFloat getPlumbingPrice() {
+        return plumbingPrice;
+    }
+
+    public void setPlumbingPrice(ObservableFloat plumbingPrice) {
+        this.plumbingPrice = plumbingPrice;
+    }
+
+    public ObservableFloat getElectricalPrice() {
+        return electricalPrice;
+    }
+
+    public void setElectricalPrice(ObservableFloat electricalPrice) {
+        this.electricalPrice = electricalPrice;
+    }
+
+    public ObservableFloat getFurniturePrice() {
+        return furniturePrice;
+    }
+
+    public void setFurniturePrice(ObservableFloat furniturePrice) {
+        this.furniturePrice = furniturePrice;
+    }
+
+    public ObservableFloat getAcPrice() {
+        return acPrice;
+    }
+
+    public void setAcPrice(ObservableFloat acPrice) {
+        this.acPrice = acPrice;
+    }
+
+    public ObservableFloat getPaintJobPrice() {
+        return paintJobPrice;
+    }
+
+    public void setPaintJobPrice(ObservableFloat paintJobPrice) {
+        this.paintJobPrice = paintJobPrice;
     }
 }
