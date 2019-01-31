@@ -23,7 +23,8 @@ public class Request implements Serializable {
         FAILED;
     }
 
-    public Request(Handyman handyman, User buyer, int urgency, Date startDate, Date endDate, String address, Status status, boolean isPayableByCash, Job job) {
+    public Request(Handyman handyman, User buyer, int urgency, Date startDate, Date endDate,
+                   String address, Status status, boolean isPayableByCash, Job job) {
         this.handyman = handyman;
         this.buyer = buyer;
         this.urgency = urgency;
