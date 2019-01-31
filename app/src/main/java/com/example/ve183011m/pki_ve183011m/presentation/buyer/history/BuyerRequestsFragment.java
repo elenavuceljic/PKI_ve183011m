@@ -11,18 +11,36 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.ve183011m.pki_ve183011m.R;
+import com.example.ve183011m.pki_ve183011m.data.RequestManager;
 import com.example.ve183011m.pki_ve183011m.data.UserManager;
+import com.example.ve183011m.pki_ve183011m.model.Request;
 import com.example.ve183011m.pki_ve183011m.model.User;
 
-public class HandymenHistoryFragment extends Fragment {
+public class BuyerRequestsFragment extends Fragment {
 
-    private OnListFragmentInteractionListener mListener;
+    private User user;
+    private static final String USER = "user";
 
-    public HandymenHistoryFragment() {
+    private BuyerRequestsFragmentCallback mListener;
+
+    public BuyerRequestsFragment() {
     }
 
-    public static HandymenHistoryFragment newInstance() {
-        return new HandymenHistoryFragment();
+    public static BuyerRequestsFragment newInstance(User user) {
+        BuyerRequestsFragment fragment = new BuyerRequestsFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(USER, user);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (getArguments() != null) {
+            user = (User) getArguments().getSerializable(USER);
+        }
     }
 
     @Override
@@ -35,7 +53,7 @@ public class HandymenHistoryFragment extends Fragment {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new HandymenHistoryRecyclerViewAdapter(UserManager.getInstance().getHandymen(), mListener));
+            recyclerView.setAdapter(new BuyerRequestsRecyclerViewAdapter(RequestManager.getInstance().getRequestsForUser(user), mListener));
         }
         return view;
     }
@@ -44,11 +62,11 @@ public class HandymenHistoryFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
+        if (context instanceof BuyerRequestsFragmentCallback) {
+            mListener = (BuyerRequestsFragmentCallback) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
+                    + " must implement BuyerRequestsFragmentCallback");
         }
     }
 
@@ -58,7 +76,7 @@ public class HandymenHistoryFragment extends Fragment {
         mListener = null;
     }
 
-    public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(User handyman);
+    public interface BuyerRequestsFragmentCallback {
+        void onRequestSelected(Request request);
     }
 }

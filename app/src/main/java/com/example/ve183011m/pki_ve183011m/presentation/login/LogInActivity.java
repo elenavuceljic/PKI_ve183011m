@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.example.ve183011m.pki_ve183011m.R;
 import com.example.ve183011m.pki_ve183011m.databinding.ActivityLogInBinding;
 import com.example.ve183011m.pki_ve183011m.model.Handyman;
+import com.example.ve183011m.pki_ve183011m.model.Request;
 import com.example.ve183011m.pki_ve183011m.model.User;
 import com.example.ve183011m.pki_ve183011m.presentation.buyer.BuyerMainActivity;
 import com.example.ve183011m.pki_ve183011m.presentation.handyman.HandymanMainActivity;

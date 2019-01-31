@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 
 import com.example.ve183011m.pki_ve183011m.R;
 import com.example.ve183011m.pki_ve183011m.model.Handyman;
+import com.example.ve183011m.pki_ve183011m.model.Request;
 import com.example.ve183011m.pki_ve183011m.model.User;
 import com.example.ve183011m.pki_ve183011m.util.LockableViewPager;
 import com.example.ve183011m.pki_ve183011m.presentation.buyer.BuyerMainActivity;

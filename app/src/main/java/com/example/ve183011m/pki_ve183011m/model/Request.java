@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public class Request implements Serializable {
 
-    private User handyman;
+    private Handyman handyman;
     private User buyer;
     private int urgency;
     private Date startDate, endDate;
@@ -23,7 +23,7 @@ public class Request implements Serializable {
         FAILED;
     }
 
-    public Request(User handyman, User buyer, int urgency, Date startDate, Date endDate, String address, Status status, boolean isPayableByCash, Job job) {
+    public Request(Handyman handyman, User buyer, int urgency, Date startDate, Date endDate, String address, Status status, boolean isPayableByCash, Job job) {
         this.handyman = handyman;
         this.buyer = buyer;
         this.urgency = urgency;
@@ -39,7 +39,7 @@ public class Request implements Serializable {
         return handyman;
     }
 
-    public void setHandyman(User handyman) {
+    public void setHandyman(Handyman handyman) {
         this.handyman = handyman;
     }
 

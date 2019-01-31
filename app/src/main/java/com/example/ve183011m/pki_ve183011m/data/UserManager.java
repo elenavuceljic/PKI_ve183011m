@@ -2,6 +2,7 @@ package com.example.ve183011m.pki_ve183011m.data;
 
 import com.example.ve183011m.pki_ve183011m.model.Handyman;
 import com.example.ve183011m.pki_ve183011m.model.Job;
+import com.example.ve183011m.pki_ve183011m.model.Request;
 import com.example.ve183011m.pki_ve183011m.model.User;
 
 import java.io.Serializable;

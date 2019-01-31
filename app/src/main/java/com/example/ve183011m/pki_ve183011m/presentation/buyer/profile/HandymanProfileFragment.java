@@ -17,6 +17,7 @@ import com.example.ve183011m.pki_ve183011m.data.UserManager;
 import com.example.ve183011m.pki_ve183011m.databinding.FragmentHandymanProfileBinding;
 import com.example.ve183011m.pki_ve183011m.databinding.ViewInputRowBinding;
 import com.example.ve183011m.pki_ve183011m.databinding.ViewProfileButtonsBinding;
+import com.example.ve183011m.pki_ve183011m.model.Request;
 import com.example.ve183011m.pki_ve183011m.model.User;
 
 public class HandymanProfileFragment extends Fragment {

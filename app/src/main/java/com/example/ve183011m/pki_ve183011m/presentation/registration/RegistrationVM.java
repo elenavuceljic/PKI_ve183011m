@@ -1,7 +1,6 @@
 package com.example.ve183011m.pki_ve183011m.presentation.registration;
 
 import android.databinding.BaseObservable;
-import android.databinding.Observable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableFloat;
@@ -10,6 +9,7 @@ import android.databinding.ObservableInt;
 import com.example.ve183011m.pki_ve183011m.data.UserManager;
 import com.example.ve183011m.pki_ve183011m.model.Handyman;
 import com.example.ve183011m.pki_ve183011m.model.Job;
+import com.example.ve183011m.pki_ve183011m.model.Request;
 import com.example.ve183011m.pki_ve183011m.model.User;
 
 import java.io.Serializable;
@@ -118,7 +118,7 @@ public class RegistrationVM extends BaseObservable implements Serializable {
                 if (paintJob.get()) {
                     skills.add(new Job("Interior painting", paintJobPrice.get()));
                 }
-                Handyman user = new Handyman(username.get(), password.get(), fullName.get(), address.get(),
+                User user = new Handyman(username.get(), password.get(), fullName.get(), address.get(),
                         telephone.get(), experience.get(), skills);
                 userManager.addUser(user);
                 registrationHandler.onRegister(user);

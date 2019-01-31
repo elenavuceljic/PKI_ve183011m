@@ -10,25 +10,23 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ve183011m.pki_ve183011m.R;
 import com.example.ve183011m.pki_ve183011m.databinding.ActivityBuyerMainBinding;
+import com.example.ve183011m.pki_ve183011m.model.Request;
 import com.example.ve183011m.pki_ve183011m.model.User;
-import com.example.ve183011m.pki_ve183011m.presentation.buyer.history.HandymenHistoryFragment;
+import com.example.ve183011m.pki_ve183011m.presentation.buyer.history.BuyerRequestsFragment;
 import com.example.ve183011m.pki_ve183011m.presentation.buyer.profile.HandymanProfileFragment;
 import com.example.ve183011m.pki_ve183011m.presentation.buyer.search.SearchHandymenFragment;
 import com.example.ve183011m.pki_ve183011m.presentation.login.LogInActivity;
 
 import static com.example.ve183011m.pki_ve183011m.presentation.login.LogInActivity.USER;
 
-public class BuyerMainActivity extends AppCompatActivity implements SearchHandymenFragment.OnListFragmentInteractionListener, HandymenHistoryFragment.OnListFragmentInteractionListener, HandymanProfileFragment.HandymanProfileFragmentCallback {
+public class BuyerMainActivity extends AppCompatActivity implements SearchHandymenFragment.OnListFragmentInteractionListener, BuyerRequestsFragment.BuyerRequestsFragmentCallback, HandymanProfileFragment.HandymanProfileFragmentCallback {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -39,7 +37,7 @@ public class BuyerMainActivity extends AppCompatActivity implements SearchHandym
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_buyer_main);
 
-        User user = (User) getIntent().getSerializableExtra(USER);
+        User user = (User)getIntent().getSerializableExtra(USER);
 
         setSupportActionBar(binding.toolbar);
 
@@ -115,7 +113,7 @@ public class BuyerMainActivity extends AppCompatActivity implements SearchHandym
     }
 
     @Override
-    public void onListFragmentInteraction(User handyman) {
+    public void onRequestSelected(Request request) {
 
     }
 
@@ -124,9 +122,14 @@ public class BuyerMainActivity extends AppCompatActivity implements SearchHandym
         Toast.makeText(this, "Saved changes", Toast.LENGTH_LONG).show();
     }
 
+    @Override
+    public void onListFragmentInteraction(User handyman) {
+
+    }
+
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        private final User user;
+        private User user;
 
         public SectionsPagerAdapter(FragmentManager fm, User user) {
             super(fm);
@@ -140,7 +143,7 @@ public class BuyerMainActivity extends AppCompatActivity implements SearchHandym
                     return SearchHandymenFragment.newInstance();
                 }
                 case 1: {
-                    return HandymenHistoryFragment.newInstance();
+                    return BuyerRequestsFragment.newInstance(user);
                 }
                 default: {
                     return HandymanProfileFragment.newInstance(user);

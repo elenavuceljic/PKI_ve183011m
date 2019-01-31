@@ -4,6 +4,7 @@ import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
 
 import com.example.ve183011m.pki_ve183011m.data.UserManager;
+import com.example.ve183011m.pki_ve183011m.model.Request;
 import com.example.ve183011m.pki_ve183011m.model.User;
 
 public class LogInVM extends BaseObservable {

@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ve183011m.pki_ve183011m.R;
+import com.example.ve183011m.pki_ve183011m.model.Request;
 import com.example.ve183011m.pki_ve183011m.model.User;
 import com.example.ve183011m.pki_ve183011m.presentation.buyer.profile.HandymanProfileFragment;
 import com.example.ve183011m.pki_ve183011m.presentation.login.LogInActivity;
@@ -30,9 +31,6 @@ public class HandymanMainActivity extends AppCompatActivity implements HandymanP
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     private ViewPager mViewPager;
 
     @Override
@@ -140,7 +138,7 @@ public class HandymanMainActivity extends AppCompatActivity implements HandymanP
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        private final User user;
+        private User user;
 
         public SectionsPagerAdapter(FragmentManager fm, User user) {
             super(fm);

@@ -1,8 +1,10 @@
 package com.example.ve183011m.pki_ve183011m.data;
 
 import com.example.ve183011m.pki_ve183011m.model.Request;
+import com.example.ve183011m.pki_ve183011m.model.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RequestManager {
 
@@ -17,4 +19,7 @@ public class RequestManager {
         return instance;
     }
 
+    public List<Request> getRequestsForUser(User user) {
+        return null;
+    }
 }

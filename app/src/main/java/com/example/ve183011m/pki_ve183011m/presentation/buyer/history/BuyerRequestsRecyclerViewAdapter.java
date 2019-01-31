@@ -7,18 +7,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.ve183011m.pki_ve183011m.R;
-import com.example.ve183011m.pki_ve183011m.model.User;
-import com.example.ve183011m.pki_ve183011m.presentation.buyer.history.HandymenHistoryFragment.OnListFragmentInteractionListener;
+import com.example.ve183011m.pki_ve183011m.model.Request;
 
 import java.util.List;
 
-public class HandymenHistoryRecyclerViewAdapter extends RecyclerView.Adapter<HandymenHistoryRecyclerViewAdapter.ViewHolder> {
+public class BuyerRequestsRecyclerViewAdapter extends RecyclerView.Adapter<BuyerRequestsRecyclerViewAdapter.ViewHolder> {
 
-    private final List<User> handymenList;
-    private final OnListFragmentInteractionListener mListener;
+    private final List<Request> requestsList;
+    private final BuyerRequestsFragment.BuyerRequestsFragmentCallback mListener;
 
-    public HandymenHistoryRecyclerViewAdapter(List<User> items, OnListFragmentInteractionListener listener) {
-        handymenList = items;
+    public BuyerRequestsRecyclerViewAdapter(List<Request> items, BuyerRequestsFragment.BuyerRequestsFragmentCallback listener) {
+        requestsList = items;
         mListener = listener;
     }
 
@@ -31,9 +30,9 @@ public class HandymenHistoryRecyclerViewAdapter extends RecyclerView.Adapter<Han
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.handyman = handymenList.get(position);
-        holder.mIdView.setText(handymenList.get(position).getFullName());
-        holder.mContentView.setText(handymenList.get(position).getAddress());
+        holder.handyman = requestsList.get(position);
+        holder.mIdView.setText(requestsList.get(position).getHandyman().getFullName());
+        holder.mContentView.setText(requestsList.get(position).getJob().getName());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,7 +40,7 @@ public class HandymenHistoryRecyclerViewAdapter extends RecyclerView.Adapter<Han
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.handyman);
+                    mListener.onRequestSelected(holder.handyman);
                 }
             }
         });
@@ -49,14 +48,14 @@ public class HandymenHistoryRecyclerViewAdapter extends RecyclerView.Adapter<Han
 
     @Override
     public int getItemCount() {
-        return handymenList.size();
+        return requestsList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public User handyman;
+        public Request handyman;
 
         public ViewHolder(View view) {
             super(view);
