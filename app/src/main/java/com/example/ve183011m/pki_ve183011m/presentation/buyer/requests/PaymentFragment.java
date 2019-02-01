@@ -21,7 +21,7 @@ public class PaymentFragment extends DialogFragment {
 
     private boolean isInputValid = false;
     private Request request;
-    private static final String REQUEST = "request";
+    public static final String REQUEST = "request";
 
     public PaymentFragment() {
         // Required empty public constructor

@@ -24,9 +24,11 @@ import com.example.ve183011m.pki_ve183011m.model.User;
 import com.example.ve183011m.pki_ve183011m.presentation.buyer.requests.BuyerRequestsFragment;
 import com.example.ve183011m.pki_ve183011m.presentation.buyer.profile.HandymanProfileFragment;
 import com.example.ve183011m.pki_ve183011m.presentation.buyer.requests.PaymentFragment;
+import com.example.ve183011m.pki_ve183011m.presentation.buyer.requests.BuyerRequestPreviewActivity;
 import com.example.ve183011m.pki_ve183011m.presentation.buyer.search.SearchHandymenFragment;
 import com.example.ve183011m.pki_ve183011m.presentation.login.LogInActivity;
 
+import static com.example.ve183011m.pki_ve183011m.presentation.buyer.requests.PaymentFragment.REQUEST;
 import static com.example.ve183011m.pki_ve183011m.presentation.login.LogInActivity.USER;
 
 public class BuyerMainActivity extends AppCompatActivity implements SearchHandymenFragment.OnListFragmentInteractionListener, BuyerRequestsFragment.BuyerRequestsFragmentCallback, HandymanProfileFragment.HandymanProfileFragmentCallback, PaymentFragment.PaymentFragmentCallback {
@@ -95,7 +97,6 @@ public class BuyerMainActivity extends AppCompatActivity implements SearchHandym
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_buyer_main, menu);
         return true;
     }
@@ -121,7 +122,10 @@ public class BuyerMainActivity extends AppCompatActivity implements SearchHandym
 
     @Override
     public void onRequestSelected(Request request) {
-
+        Intent intent = new Intent(this, BuyerRequestPreviewActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(REQUEST, request);
+        startActivity(intent);
     }
 
     @Override

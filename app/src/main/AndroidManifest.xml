@@ -10,8 +10,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".presentation.buyer.RequestPreviewActivity" />
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        <activity
+            android:name=".presentation.buyer.requests.BuyerRequestPreviewActivity"
+            android:parentActivityName=".presentation.buyer.BuyerMainActivity" />
         <activity
             android:name=".presentation.handyman.HandymanMainActivity"
             android:label="@string/title_activity_handyman_main"

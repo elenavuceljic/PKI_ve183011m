@@ -21,7 +21,9 @@ public class UserManager implements Serializable {
             add(new Job("Plumbing", 200.0F));
             add(new Job("Air conditioning", 300.0F));
             add(new Job("Electrical installations", 150.0F));
-        }}));
+        }}, new ArrayList<Float>(){{
+            add(3.5f);
+        }}, new ArrayList<Handyman.Review>()));
     }};
 
     private UserManager() {

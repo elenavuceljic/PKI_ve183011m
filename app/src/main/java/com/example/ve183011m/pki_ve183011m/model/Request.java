@@ -37,7 +37,7 @@ public class Request implements Serializable {
         this.job = job;
     }
 
-    public User getHandyman() {
+    public Handyman getHandyman() {
         return handyman;
     }
 

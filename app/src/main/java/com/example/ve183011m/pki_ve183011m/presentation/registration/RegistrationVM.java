@@ -119,7 +119,7 @@ public class RegistrationVM extends BaseObservable implements Serializable {
                     skills.add(new Job("Interior painting", paintJobPrice.get()));
                 }
                 User user = new Handyman(username.get(), password.get(), fullName.get(), address.get(),
-                        telephone.get(), experience.get(), skills);
+                        telephone.get(), experience.get(), skills, new ArrayList<Float>(), new ArrayList<Handyman.Review>());
                 userManager.addUser(user);
                 registrationHandler.onRegister(user);
                 break;
