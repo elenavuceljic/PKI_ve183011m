@@ -66,7 +66,7 @@ public class BuyerRequestPreviewActivity extends AppCompatActivity implements Pa
     private void inflateView() {
         binding.requestPreviewHolder.addView(inflatePreviewItemView(R.string.handyman_lc, request.getHandyman().getFullName()));
         binding.requestPreviewHolder.addView(inflatePreviewItemView(R.string.phone_number, request.getHandyman().getTelephone()));
-        binding.requestPreviewHolder.addView(inflatePreviewUrgencyView(25));
+        binding.requestPreviewHolder.addView(inflatePreviewItemView(R.string.urgency, request.getUrgency().name()));
         binding.requestPreviewHolder.addView(inflatePreviewItemView(R.string.job, request.getJob().getName()));
         binding.requestPreviewHolder.addView(inflatePreviewItemView(R.string.price, String.valueOf(request.getJob().getPrice())));
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");

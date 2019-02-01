@@ -1,16 +1,15 @@
 package com.example.ve183011m.pki_ve183011m.presentation.handyman;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,49 +19,77 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ve183011m.pki_ve183011m.R;
+import com.example.ve183011m.pki_ve183011m.data.RequestManager;
+import com.example.ve183011m.pki_ve183011m.databinding.ActivityHandymanMainBinding;
 import com.example.ve183011m.pki_ve183011m.model.Request;
 import com.example.ve183011m.pki_ve183011m.model.User;
 import com.example.ve183011m.pki_ve183011m.presentation.buyer.profile.HandymanProfileFragment;
+import com.example.ve183011m.pki_ve183011m.presentation.buyer.requests.BuyerRequestsFragment;
+import com.example.ve183011m.pki_ve183011m.presentation.handyman.requests.HandymanRequestsFragment;
 import com.example.ve183011m.pki_ve183011m.presentation.login.LogInActivity;
 
 import static com.example.ve183011m.pki_ve183011m.presentation.login.LogInActivity.USER;
 
-public class HandymanMainActivity extends AppCompatActivity implements HandymanProfileFragment.HandymanProfileFragmentCallback {
+public class HandymanMainActivity extends AppCompatActivity implements HandymanProfileFragment.HandymanProfileFragmentCallback, HandymanRequestsFragment.HandymanRequestsFragmentCallback {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
-    private ViewPager mViewPager;
+    private ActivityHandymanMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_handyman_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_handyman_main);
 
-        User user = (User) getIntent().getSerializableExtra(USER);
+        final User user = (User) getIntent().getSerializableExtra(USER);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
+        setSupportActionBar(binding.toolbar);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), user);
+        binding.container.setAdapter(mSectionsPagerAdapter);
 
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        binding.container.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(binding.tabs));
+        binding.tabs.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(binding.container));
 
-        TabLayout tabLayout = findViewById(R.id.tabs);
-
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        binding.tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getPosition() == 0) {
+                    binding.bottomRequestsNavigation.setVisibility(View.VISIBLE);
+                } else {
+                    binding.bottomRequestsNavigation.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
             }
         });
 
+        binding.bottomRequestsNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                HandymanRequestsFragment fragment = (HandymanRequestsFragment) getSupportFragmentManager().getFragments().get(0);
+                RequestManager requestManager = RequestManager.getInstance();
+                switch (menuItem.getItemId()) {
+                    case R.id.active_request:
+                        fragment.adapter.requestsList = requestManager.getActiveRequestsForHandyman(user);
+                        fragment.adapter.notifyDataSetChanged();
+                        return true;
+                    case R.id.closed_requests:
+                        fragment.adapter.requestsList = requestManager.getClosedRequestsForHandyman(user);
+                        fragment.adapter.notifyDataSetChanged();
+                        return true;
+                }
+
+                return false;
+            }
+        });
     }
 
 
@@ -84,6 +111,7 @@ public class HandymanMainActivity extends AppCompatActivity implements HandymanP
         return super.onOptionsItemSelected(item);
     }
 
+
     private void logOut() {
         Intent intent = new Intent(this, LogInActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -94,6 +122,11 @@ public class HandymanMainActivity extends AppCompatActivity implements HandymanP
     @Override
     public void onHandymanSaved(User handyman) {
         Toast.makeText(this, "Saved changes", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onRequestSelected(Request request) {
+
     }
 
     /**
@@ -144,15 +177,12 @@ public class HandymanMainActivity extends AppCompatActivity implements HandymanP
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-
-                    break;
+                    return HandymanRequestsFragment.newInstance(user);
                 case 1:
-
-                    break;
+                    return PlaceholderFragment.newInstance(position + 1);
                 default:
                     return HandymanProfileFragment.newInstance(user);
             }
-            return PlaceholderFragment.newInstance(position + 1);
         }
 
         @Override

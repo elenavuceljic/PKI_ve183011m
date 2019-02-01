@@ -8,7 +8,7 @@ public class Request implements Serializable {
 
     private Handyman handyman;
     private User buyer;
-    private int urgency;
+    private Urgency urgency;
     private Date startDate, endDate;
     private String address;
     private Status status;
@@ -24,7 +24,13 @@ public class Request implements Serializable {
         FAILED;
     }
 
-    public Request(Handyman handyman, User buyer, int urgency, Date startDate, Date endDate,
+    public enum Urgency {
+        HIGH,
+        MEDIUM,
+        LOW
+    }
+
+    public Request(Handyman handyman, User buyer, Urgency urgency, Date startDate, Date endDate,
                    String address, Status status, boolean isPayableByCash, Job job) {
         this.handyman = handyman;
         this.buyer = buyer;
@@ -53,11 +59,11 @@ public class Request implements Serializable {
         this.buyer = buyer;
     }
 
-    public int getUrgency() {
+    public Urgency getUrgency() {
         return urgency;
     }
 
-    public void setUrgency(int urgency) {
+    public void setUrgency(Urgency urgency) {
         this.urgency = urgency;
     }
 

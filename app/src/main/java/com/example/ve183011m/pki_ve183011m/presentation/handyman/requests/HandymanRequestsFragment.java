@@ -1,8 +1,7 @@
-package com.example.ve183011m.pki_ve183011m.presentation.buyer.requests;
+package com.example.ve183011m.pki_ve183011m.presentation.handyman.requests;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,21 +13,22 @@ import com.example.ve183011m.pki_ve183011m.R;
 import com.example.ve183011m.pki_ve183011m.data.RequestManager;
 import com.example.ve183011m.pki_ve183011m.model.Request;
 import com.example.ve183011m.pki_ve183011m.model.User;
+import com.example.ve183011m.pki_ve183011m.presentation.handyman.requests.dummy.DummyContent;
 
-public class BuyerRequestsFragment extends Fragment {
+public class HandymanRequestsFragment extends Fragment {
 
     private User user;
     private static final String USER = "user";
 
-    private BuyerRequestsFragmentCallback mListener;
+    public HandymanRequestsRecyclerViewAdapter adapter;
 
-    public BuyerRequestsRecyclerViewAdapter adapter;
+    private HandymanRequestsFragmentCallback mListener;
 
-    public BuyerRequestsFragment() {
+    public HandymanRequestsFragment() {
     }
 
-    public static BuyerRequestsFragment newInstance(User user) {
-        BuyerRequestsFragment fragment = new BuyerRequestsFragment();
+    public static HandymanRequestsFragment newInstance(User user) {
+        HandymanRequestsFragment fragment = new HandymanRequestsFragment();
         Bundle args = new Bundle();
         args.putSerializable(USER, user);
         fragment.setArguments(args);
@@ -45,15 +45,15 @@ public class BuyerRequestsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_buyer_requests_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_handyman_request_list, container, false);
 
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            adapter = new BuyerRequestsRecyclerViewAdapter(RequestManager.getInstance().getActiveRequestsForBuyer(user), mListener);
+            adapter = new HandymanRequestsRecyclerViewAdapter(RequestManager.getInstance().getActiveRequestsForHandyman(user), mListener);
             recyclerView.setAdapter(adapter);
         }
         return view;
@@ -63,11 +63,11 @@ public class BuyerRequestsFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof BuyerRequestsFragmentCallback) {
-            mListener = (BuyerRequestsFragmentCallback) context;
+        if (context instanceof HandymanRequestsFragmentCallback) {
+            mListener = (HandymanRequestsFragmentCallback) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement BuyerRequestsFragmentCallback");
+                    + " must implement HandymanRequestsFragmentCallback");
         }
     }
 
@@ -77,9 +77,8 @@ public class BuyerRequestsFragment extends Fragment {
         mListener = null;
     }
 
-    public interface BuyerRequestsFragmentCallback {
+    public interface HandymanRequestsFragmentCallback {
         void onRequestSelected(Request request);
-        void onPayRequest(Request request);
     }
 
     public void update() {
