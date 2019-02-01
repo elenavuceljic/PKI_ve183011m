@@ -13,7 +13,6 @@ import com.example.ve183011m.pki_ve183011m.R;
 import com.example.ve183011m.pki_ve183011m.data.RequestManager;
 import com.example.ve183011m.pki_ve183011m.model.Request;
 import com.example.ve183011m.pki_ve183011m.model.User;
-import com.example.ve183011m.pki_ve183011m.presentation.handyman.requests.dummy.DummyContent;
 
 public class HandymanRequestsFragment extends Fragment {
 

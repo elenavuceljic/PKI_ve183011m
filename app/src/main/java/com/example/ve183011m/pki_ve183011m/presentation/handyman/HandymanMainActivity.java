@@ -24,10 +24,13 @@ import com.example.ve183011m.pki_ve183011m.databinding.ActivityHandymanMainBindi
 import com.example.ve183011m.pki_ve183011m.model.Request;
 import com.example.ve183011m.pki_ve183011m.model.User;
 import com.example.ve183011m.pki_ve183011m.presentation.buyer.profile.HandymanProfileFragment;
+import com.example.ve183011m.pki_ve183011m.presentation.buyer.requests.BuyerRequestPreviewActivity;
 import com.example.ve183011m.pki_ve183011m.presentation.buyer.requests.BuyerRequestsFragment;
+import com.example.ve183011m.pki_ve183011m.presentation.handyman.requests.HandymanRequestPreviewActivity;
 import com.example.ve183011m.pki_ve183011m.presentation.handyman.requests.HandymanRequestsFragment;
 import com.example.ve183011m.pki_ve183011m.presentation.login.LogInActivity;
 
+import static com.example.ve183011m.pki_ve183011m.presentation.buyer.requests.PaymentFragment.REQUEST;
 import static com.example.ve183011m.pki_ve183011m.presentation.login.LogInActivity.USER;
 
 public class HandymanMainActivity extends AppCompatActivity implements HandymanProfileFragment.HandymanProfileFragmentCallback, HandymanRequestsFragment.HandymanRequestsFragmentCallback {
@@ -126,7 +129,10 @@ public class HandymanMainActivity extends AppCompatActivity implements HandymanP
 
     @Override
     public void onRequestSelected(Request request) {
-
+        Intent intent = new Intent(this, HandymanRequestPreviewActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(REQUEST, request);
+        startActivity(intent);
     }
 
     /**

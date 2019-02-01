@@ -124,14 +124,6 @@ public class BuyerRequestPreviewActivity extends AppCompatActivity implements Pa
         return itemBinding.getRoot();
     }
 
-    private View inflatePreviewUrgencyView(int percentage) {
-        ViewRequestUrgencyBinding itemBinding = DataBindingUtil.inflate(LayoutInflater.from(this),
-                R.layout.view_request_urgency, null, false);
-        itemBinding.urgencySeekBar.setProgress(percentage);
-
-        return itemBinding.getRoot();
-    }
-
     private View inflatePreviewRateView(float rating) {
         ViewRequestRatingBinding itemBinding = DataBindingUtil.inflate(LayoutInflater.from(this),
                 R.layout.view_request_rating, null, false);
