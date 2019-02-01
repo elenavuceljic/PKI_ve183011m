@@ -2,12 +2,12 @@
 <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/list"
+    android:id="@+id/request_list"
     android:name="com.example.ve183011m.pki_ve183011m.presentation.buyer.HandymenHistoryFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".presentation.buyer.history.BuyerRequestsFragment"
-    tools:listitem="@layout/fragment_handymen_history" />
+    tools:context=".presentation.buyer.requests.BuyerRequestsFragment"
+    tools:listitem="@layout/fragment_buyer_requests"/>

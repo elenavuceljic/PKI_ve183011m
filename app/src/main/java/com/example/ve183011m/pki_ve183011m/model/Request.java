@@ -13,6 +13,7 @@ public class Request implements Serializable {
     private String address;
     private Status status;
     private boolean isPayableByCash;
+    private boolean isPayed = false;
     private Job job;
 
     public enum Status {
@@ -108,6 +109,14 @@ public class Request implements Serializable {
         this.job = job;
     }
 
+    public boolean isPayed() {
+        return isPayed;
+    }
+
+    public void setPayed(boolean payed) {
+        isPayed = payed;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -115,6 +124,7 @@ public class Request implements Serializable {
         Request request = (Request) o;
         return urgency == request.urgency &&
                 isPayableByCash == request.isPayableByCash &&
+                isPayed == request.isPayed &&
                 Objects.equals(handyman, request.handyman) &&
                 Objects.equals(buyer, request.buyer) &&
                 Objects.equals(startDate, request.startDate) &&
@@ -126,7 +136,6 @@ public class Request implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(handyman, buyer, urgency, startDate, endDate, address, status, isPayableByCash, job);
+        return Objects.hash(handyman, buyer, urgency, startDate, endDate, address, status, isPayableByCash, isPayed, job);
     }
-
 }

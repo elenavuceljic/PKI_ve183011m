@@ -98,7 +98,7 @@ public class HandymanProfileFragment extends Fragment {
             callback = (HandymanProfileFragmentCallback) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement PaymentFragmentCallback");
         }
     }
 

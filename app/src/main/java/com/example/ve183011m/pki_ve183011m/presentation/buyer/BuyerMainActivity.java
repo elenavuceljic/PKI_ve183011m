@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -16,17 +17,19 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.ve183011m.pki_ve183011m.R;
+import com.example.ve183011m.pki_ve183011m.data.RequestManager;
 import com.example.ve183011m.pki_ve183011m.databinding.ActivityBuyerMainBinding;
 import com.example.ve183011m.pki_ve183011m.model.Request;
 import com.example.ve183011m.pki_ve183011m.model.User;
-import com.example.ve183011m.pki_ve183011m.presentation.buyer.history.BuyerRequestsFragment;
+import com.example.ve183011m.pki_ve183011m.presentation.buyer.requests.BuyerRequestsFragment;
 import com.example.ve183011m.pki_ve183011m.presentation.buyer.profile.HandymanProfileFragment;
+import com.example.ve183011m.pki_ve183011m.presentation.buyer.requests.PaymentFragment;
 import com.example.ve183011m.pki_ve183011m.presentation.buyer.search.SearchHandymenFragment;
 import com.example.ve183011m.pki_ve183011m.presentation.login.LogInActivity;
 
 import static com.example.ve183011m.pki_ve183011m.presentation.login.LogInActivity.USER;
 
-public class BuyerMainActivity extends AppCompatActivity implements SearchHandymenFragment.OnListFragmentInteractionListener, BuyerRequestsFragment.BuyerRequestsFragmentCallback, HandymanProfileFragment.HandymanProfileFragmentCallback {
+public class BuyerMainActivity extends AppCompatActivity implements SearchHandymenFragment.OnListFragmentInteractionListener, BuyerRequestsFragment.BuyerRequestsFragmentCallback, HandymanProfileFragment.HandymanProfileFragmentCallback, PaymentFragment.PaymentFragmentCallback {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -37,7 +40,7 @@ public class BuyerMainActivity extends AppCompatActivity implements SearchHandym
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_buyer_main);
 
-        User user = (User)getIntent().getSerializableExtra(USER);
+        final User user = (User)getIntent().getSerializableExtra(USER);
 
         setSupportActionBar(binding.toolbar);
 
@@ -71,12 +74,16 @@ public class BuyerMainActivity extends AppCompatActivity implements SearchHandym
         binding.bottomRequestsNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                BuyerRequestsFragment fragment = (BuyerRequestsFragment) getSupportFragmentManager().getFragments().get(1);
+                RequestManager requestManager = RequestManager.getInstance();
                 switch (menuItem.getItemId()) {
                     case R.id.active_request:
-                        // filter with active
+                        fragment.adapter.requestsList = requestManager.getActiveRequestsForBuyer(user);
+                        fragment.adapter.notifyDataSetChanged();
                         return true;
                     case R.id.closed_requests:
-                        // filter with closed
+                        fragment.adapter.requestsList = requestManager.getClosedRequestsForBuyer(user);
+                        fragment.adapter.notifyDataSetChanged();
                         return true;
                 }
 
@@ -118,6 +125,12 @@ public class BuyerMainActivity extends AppCompatActivity implements SearchHandym
     }
 
     @Override
+    public void onPayRequest(Request request) {
+        DialogFragment newFragment = PaymentFragment.newInstance(request);
+        newFragment.show(getSupportFragmentManager(), "payment");
+    }
+
+    @Override
     public void onHandymanSaved(User handyman) {
         Toast.makeText(this, "Saved changes", Toast.LENGTH_LONG).show();
     }
@@ -125,6 +138,12 @@ public class BuyerMainActivity extends AppCompatActivity implements SearchHandym
     @Override
     public void onListFragmentInteraction(User handyman) {
 
+    }
+
+    @Override
+    public void onRequestPaid(Request request) {
+        request.setPayed(true);
+        ((BuyerRequestsFragment)getSupportFragmentManager().getFragments().get(1)).update();
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {

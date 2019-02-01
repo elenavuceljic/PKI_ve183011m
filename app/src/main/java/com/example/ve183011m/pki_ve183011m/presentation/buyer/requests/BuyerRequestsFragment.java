@@ -1,4 +1,4 @@
-package com.example.ve183011m.pki_ve183011m.presentation.buyer.history;
+package com.example.ve183011m.pki_ve183011m.presentation.buyer.requests;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 
 import com.example.ve183011m.pki_ve183011m.R;
 import com.example.ve183011m.pki_ve183011m.data.RequestManager;
-import com.example.ve183011m.pki_ve183011m.data.UserManager;
 import com.example.ve183011m.pki_ve183011m.model.Request;
 import com.example.ve183011m.pki_ve183011m.model.User;
 
@@ -22,6 +21,8 @@ public class BuyerRequestsFragment extends Fragment {
     private static final String USER = "user";
 
     private BuyerRequestsFragmentCallback mListener;
+
+    public BuyerRequestsRecyclerViewAdapter adapter;
 
     public BuyerRequestsFragment() {
     }
@@ -46,14 +47,15 @@ public class BuyerRequestsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_handymen_history_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_buyer_requests_list, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new BuyerRequestsRecyclerViewAdapter(RequestManager.getInstance().getRequestsForUser(user), mListener));
+            adapter = new BuyerRequestsRecyclerViewAdapter(RequestManager.getInstance().getActiveRequestsForBuyer(user), mListener);
+            recyclerView.setAdapter(adapter);
         }
         return view;
     }
@@ -78,5 +80,10 @@ public class BuyerRequestsFragment extends Fragment {
 
     public interface BuyerRequestsFragmentCallback {
         void onRequestSelected(Request request);
+        void onPayRequest(Request request);
+    }
+
+    public void update() {
+        adapter.notifyDataSetChanged();
     }
 }

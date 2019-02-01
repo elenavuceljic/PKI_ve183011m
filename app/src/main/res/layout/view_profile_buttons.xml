@@ -11,7 +11,6 @@
 
         <Button
             android:id="@+id/cancel"
-            style="?android:attr/button"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
@@ -19,18 +18,21 @@
             android:paddingTop="2dp"
             android:paddingEnd="10dp"
             android:paddingBottom="2dp"
-            android:text="@string/cancel" />
+            android:text="@string/cancel"
+            style="@style/Widget.MaterialComponents.Button"
+            android:textSize="12sp"/>
 
         <Button
             android:id="@+id/save"
-            style="?android:attr/button"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:paddingStart="10dp"
             android:paddingTop="2dp"
             android:paddingEnd="10dp"
             android:paddingBottom="2dp"
-            android:text="@string/save" />
+            android:text="@string/save"
+            style="@style/Widget.MaterialComponents.Button"
+            android:textSize="12sp"/>
 
     </LinearLayout>
 
