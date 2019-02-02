@@ -77,7 +77,7 @@ public class HandymanMainActivity extends AppCompatActivity implements HandymanP
         binding.bottomRequestsNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                HandymanRequestsFragment fragment = (HandymanRequestsFragment) getSupportFragmentManager().getFragments().get(0);
+                HandymanRequestsFragment fragment = (HandymanRequestsFragment) getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.container + ":" + binding.container.getCurrentItem());
                 RequestManager requestManager = RequestManager.getInstance();
                 switch (menuItem.getItemId()) {
                     case R.id.active_request:

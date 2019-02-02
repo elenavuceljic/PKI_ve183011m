@@ -10,6 +10,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -82,7 +83,7 @@ public class BuyerMainActivity extends AppCompatActivity implements SearchHandym
         binding.bottomRequestsNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                BuyerRequestsFragment fragment = (BuyerRequestsFragment) mSectionsPagerAdapter.getItem(1);
+                BuyerRequestsFragment fragment = (BuyerRequestsFragment) getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.container + ":" + binding.container.getCurrentItem());
                 RequestManager requestManager = RequestManager.getInstance();
                 switch (menuItem.getItemId()) {
                     case R.id.active_request:
