@@ -45,6 +45,13 @@ public class BuyerRequestsFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        adapter.requestsList = adapter.active ? RequestManager.getInstance().getActiveRequestsForBuyer(user) : RequestManager.getInstance().getClosedRequestsForBuyer(user);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_buyer_requests_list, container, false);

@@ -99,5 +99,7 @@
     <string name="enter_cvv">Enter CVV</string>
     <string name="handyman_lc">Handyman</string>
     <string name="title_activity_handyman_preview">HandymanPreviewActivity</string>
+    <string name="enter_date">Enter date</string>
+    <string name="add">ADD</string>
 
 </resources>

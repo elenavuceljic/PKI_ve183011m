@@ -9,10 +9,10 @@ public class Request implements Serializable {
     private Handyman handyman;
     private User buyer;
     private Urgency urgency;
-    private Date startDate, endDate;
-    private String address;
-    private Status status;
-    private boolean isPayableByCash;
+    private Date startDate = new Date(), endDate = new Date();
+    private String address = "";
+    private Status status = Status.SENT;
+    private boolean isPayableByCash = true;
     private boolean isPayed = false;
     private Job job;
 
@@ -21,7 +21,7 @@ public class Request implements Serializable {
         ACCEPTED,
         DENIED,
         DONE,
-        FAILED;
+        FAILED
     }
 
     public enum Urgency {
@@ -41,6 +41,11 @@ public class Request implements Serializable {
         this.status = status;
         this.isPayableByCash = isPayableByCash;
         this.job = job;
+    }
+
+    public Request(Handyman handyman, User buyer) {
+        this.handyman = handyman;
+        this.buyer = buyer;
     }
 
     public Handyman getHandyman() {

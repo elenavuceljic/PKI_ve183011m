@@ -26,6 +26,7 @@ import com.example.ve183011m.pki_ve183011m.presentation.buyer.profile.HandymanPr
 import com.example.ve183011m.pki_ve183011m.presentation.buyer.requests.BuyerRequestPreviewActivity;
 import com.example.ve183011m.pki_ve183011m.presentation.buyer.requests.BuyerRequestsFragment;
 import com.example.ve183011m.pki_ve183011m.presentation.buyer.requests.PaymentFragment;
+import com.example.ve183011m.pki_ve183011m.presentation.buyer.search.AddRequestActivity;
 import com.example.ve183011m.pki_ve183011m.presentation.buyer.search.HandymanPreviewActivity;
 import com.example.ve183011m.pki_ve183011m.presentation.buyer.search.SearchHandymenFragment;
 import com.example.ve183011m.pki_ve183011m.presentation.login.LogInActivity;
@@ -40,12 +41,14 @@ public class BuyerMainActivity extends AppCompatActivity implements SearchHandym
 
     private ActivityBuyerMainBinding binding;
 
+    private User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_buyer_main);
 
-        final User user = (User) getIntent().getSerializableExtra(USER);
+        user = (User) getIntent().getSerializableExtra(USER);
 
         setSupportActionBar(binding.toolbar);
 
@@ -79,14 +82,16 @@ public class BuyerMainActivity extends AppCompatActivity implements SearchHandym
         binding.bottomRequestsNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                BuyerRequestsFragment fragment = (BuyerRequestsFragment) getSupportFragmentManager().getFragments().get(1);
+                BuyerRequestsFragment fragment = (BuyerRequestsFragment) mSectionsPagerAdapter.getItem(1);
                 RequestManager requestManager = RequestManager.getInstance();
                 switch (menuItem.getItemId()) {
                     case R.id.active_request:
+                        fragment.adapter.active = true;
                         fragment.adapter.requestsList = requestManager.getActiveRequestsForBuyer(user);
                         fragment.adapter.notifyDataSetChanged();
                         return true;
                     case R.id.closed_requests:
+                        fragment.adapter.active = false;
                         fragment.adapter.requestsList = requestManager.getClosedRequestsForBuyer(user);
                         fragment.adapter.notifyDataSetChanged();
                         return true;
@@ -146,19 +151,23 @@ public class BuyerMainActivity extends AppCompatActivity implements SearchHandym
     public void onHandymanSelected(Handyman handyman) {
         Intent intent = new Intent(this, HandymanPreviewActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(USER, user);
         intent.putExtra(HANDYMAN, handyman);
         startActivity(intent);
     }
 
     @Override
     public void onAddRequestFor(Handyman handyman) {
-        //TODO
+        Intent intent = new Intent(this, AddRequestActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(USER, user);
+        intent.putExtra(HANDYMAN, handyman);
+        startActivity(intent);
     }
 
     @Override
     public void onRequestPaid(Request request) {
         request.setPayed(true);
-        ((BuyerRequestsFragment) getSupportFragmentManager().getFragments().get(1)).update();
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {

@@ -19,6 +19,7 @@ import java.util.List;
 public class BuyerRequestsRecyclerViewAdapter extends RecyclerView.Adapter<BuyerRequestsRecyclerViewAdapter.ViewHolder> {
 
     public List<Request> requestsList;
+    public boolean active = true;
     private final BuyerRequestsFragment.BuyerRequestsFragmentCallback mListener;
 
     public BuyerRequestsRecyclerViewAdapter(List<Request> items, BuyerRequestsFragment.BuyerRequestsFragmentCallback listener) {

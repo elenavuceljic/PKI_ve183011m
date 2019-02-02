@@ -28,4 +28,8 @@ public class Job implements Serializable {
         this.price = price;
     }
 
+    @Override
+    public String toString() {
+        return name + " - " + price;
+    }
 }

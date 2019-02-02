@@ -12,6 +12,8 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
+            android:name=".presentation.buyer.search.AddRequestActivity" />
+        <activity
             android:name=".presentation.buyer.search.HandymanPreviewActivity"
             android:label="@string/handyman_preview"
             android:parentActivityName=".presentation.buyer.BuyerMainActivity"

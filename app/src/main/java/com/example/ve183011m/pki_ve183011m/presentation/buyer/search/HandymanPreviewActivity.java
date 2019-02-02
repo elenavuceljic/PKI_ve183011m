@@ -1,57 +1,44 @@
 package com.example.ve183011m.pki_ve183011m.presentation.buyer.search;
 
-import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TextInputEditText;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.InputType;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.RatingBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.ve183011m.pki_ve183011m.R;
-import com.example.ve183011m.pki_ve183011m.data.UserManager;
 import com.example.ve183011m.pki_ve183011m.databinding.ActivityHandymanPreviewBinding;
 import com.example.ve183011m.pki_ve183011m.databinding.ViewHandymanJobBinding;
 import com.example.ve183011m.pki_ve183011m.databinding.ViewHandymanJobsBinding;
 import com.example.ve183011m.pki_ve183011m.databinding.ViewHandymanReviewBinding;
 import com.example.ve183011m.pki_ve183011m.databinding.ViewHandymanReviewsBinding;
-import com.example.ve183011m.pki_ve183011m.databinding.ViewInputRowBinding;
-import com.example.ve183011m.pki_ve183011m.databinding.ViewProfileButtonsBinding;
-import com.example.ve183011m.pki_ve183011m.databinding.ViewRequestPaymentMethodBinding;
 import com.example.ve183011m.pki_ve183011m.databinding.ViewRequestPreviewItemBinding;
 import com.example.ve183011m.pki_ve183011m.databinding.ViewRequestRatingBinding;
-import com.example.ve183011m.pki_ve183011m.databinding.ViewRequestSaveBinding;
 import com.example.ve183011m.pki_ve183011m.model.Handyman;
 import com.example.ve183011m.pki_ve183011m.model.Job;
 import com.example.ve183011m.pki_ve183011m.model.User;
-import com.example.ve183011m.pki_ve183011m.presentation.buyer.profile.HandymanProfileFragment;
-import com.example.ve183011m.pki_ve183011m.presentation.buyer.requests.PaymentFragment;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import static com.example.ve183011m.pki_ve183011m.presentation.buyer.profile.HandymanProfileFragment.HANDYMAN;
+import static com.example.ve183011m.pki_ve183011m.presentation.login.LogInActivity.USER;
 
 public class HandymanPreviewActivity extends AppCompatActivity {
 
     private ActivityHandymanPreviewBinding binding;
 
     private Handyman handyman;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        user = (User) getIntent().getSerializableExtra(USER);
         handyman = (Handyman) getIntent().getSerializableExtra(HANDYMAN);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_handyman_preview);
@@ -70,8 +57,24 @@ public class HandymanPreviewActivity extends AppCompatActivity {
         inflateView();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     public void addNewRequest() {
-        //TODO
+        Intent intent = new Intent(this, AddRequestActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(USER, user);
+        intent.putExtra(HANDYMAN, handyman);
+        startActivity(intent);
     }
 
     private void inflateView() {
@@ -125,7 +128,7 @@ public class HandymanPreviewActivity extends AppCompatActivity {
         ViewHandymanReviewsBinding itemBinding = DataBindingUtil.inflate(LayoutInflater.from(this),
                 R.layout.view_handyman_reviews, null, false);
 
-        for(Handyman.Review review: reviews) {
+        for (Handyman.Review review : reviews) {
             itemBinding.handymanReviewsContainer.addView(inflatePreviewReviewItemView(review.getReview(), review.getReviewer().getUsername()));
         }
 
@@ -136,7 +139,7 @@ public class HandymanPreviewActivity extends AppCompatActivity {
         ViewHandymanJobsBinding itemBinding = DataBindingUtil.inflate(LayoutInflater.from(this),
                 R.layout.view_handyman_jobs, null, false);
 
-        for(Job job: skills) {
+        for (Job job : skills) {
             itemBinding.handymanJobsContainer.addView(inflatePreviewJobItemView(job.getName(), String.valueOf(job.getPrice())));
         }
 

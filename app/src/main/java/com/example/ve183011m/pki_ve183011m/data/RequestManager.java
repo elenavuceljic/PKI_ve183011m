@@ -93,4 +93,8 @@ public class RequestManager {
     public void deleteRequest(Request request) {
         requests.remove(request);
     }
+
+    public void addRequest(Request request) {
+        requests.add(request);
+    }
 }
