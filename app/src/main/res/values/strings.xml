@@ -18,7 +18,7 @@
     <string name="done">DONE</string>
     <string name="a_bit_longer">Just a bit longer…</string>
     <string name="last_step">Last step</string>
-    <string name="years_experience">Years of experience</string>
+    <string name="years_experience">Experience</string>
     <string name="skills">Skills</string>
     <string name="plumbing">Plumbing</string>
     <string name="electrical_installations">Electrical installations</string>
@@ -98,5 +98,6 @@
     <string name="enter_expiration_date">Enter expiration date</string>
     <string name="enter_cvv">Enter CVV</string>
     <string name="handyman_lc">Handyman</string>
+    <string name="title_activity_handyman_preview">HandymanPreviewActivity</string>
 
 </resources>

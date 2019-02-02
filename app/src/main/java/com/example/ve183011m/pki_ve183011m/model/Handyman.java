@@ -30,6 +30,16 @@ public class Handyman extends User implements Serializable {
         return skills;
     }
 
+    public String getSkillsAsString() {
+        StringBuilder s = new StringBuilder();
+
+        for (Job j: skills) {
+            s.append(j.getName()).append('\n');
+        }
+
+        return s.toString();
+    }
+
     public float getRating() {
         if (rating.size() == 0)
             return 0;
@@ -55,7 +65,7 @@ public class Handyman extends User implements Serializable {
         reviews.add(review);
     }
 
-    public static class Review {
+    public static class Review implements Serializable {
 
         private String review;
         private User reviewer;

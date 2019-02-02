@@ -26,7 +26,7 @@ public class HandymanProfileFragment extends Fragment {
         void onHandymanSaved(User handyman);
     }
 
-    private static final String HANDYMAN = "user";
+    public static final String HANDYMAN = "user";
 
     private User user;
     private boolean isInputValid = true;

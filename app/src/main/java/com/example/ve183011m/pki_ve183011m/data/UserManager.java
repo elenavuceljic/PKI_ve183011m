@@ -30,6 +30,7 @@ public class UserManager implements Serializable {
     }
 
     public static UserManager getInstance() {
+        ((Handyman)instance.getUserWithCredentials("handy", "handy")).addReview(new Handyman.Review("Good job", instance.getUserWithCredentials("buyer", "buyer")));
         return instance;
     }
 
@@ -53,12 +54,12 @@ public class UserManager implements Serializable {
         }
     }
 
-    public List<User> getHandymen() {
-        List<User> handymen = new ArrayList<>();
+    public List<Handyman> getHandymen() {
+        List<Handyman> handymen = new ArrayList<>();
 
         for (User u : users) {
             if (u instanceof Handyman) {
-                handymen.add(u);
+                handymen.add((Handyman) u);
             }
         }
 

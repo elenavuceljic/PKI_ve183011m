@@ -19,19 +19,22 @@ import android.widget.Toast;
 import com.example.ve183011m.pki_ve183011m.R;
 import com.example.ve183011m.pki_ve183011m.data.RequestManager;
 import com.example.ve183011m.pki_ve183011m.databinding.ActivityBuyerMainBinding;
+import com.example.ve183011m.pki_ve183011m.model.Handyman;
 import com.example.ve183011m.pki_ve183011m.model.Request;
 import com.example.ve183011m.pki_ve183011m.model.User;
-import com.example.ve183011m.pki_ve183011m.presentation.buyer.requests.BuyerRequestsFragment;
 import com.example.ve183011m.pki_ve183011m.presentation.buyer.profile.HandymanProfileFragment;
-import com.example.ve183011m.pki_ve183011m.presentation.buyer.requests.PaymentFragment;
 import com.example.ve183011m.pki_ve183011m.presentation.buyer.requests.BuyerRequestPreviewActivity;
+import com.example.ve183011m.pki_ve183011m.presentation.buyer.requests.BuyerRequestsFragment;
+import com.example.ve183011m.pki_ve183011m.presentation.buyer.requests.PaymentFragment;
+import com.example.ve183011m.pki_ve183011m.presentation.buyer.search.HandymanPreviewActivity;
 import com.example.ve183011m.pki_ve183011m.presentation.buyer.search.SearchHandymenFragment;
 import com.example.ve183011m.pki_ve183011m.presentation.login.LogInActivity;
 
+import static com.example.ve183011m.pki_ve183011m.presentation.buyer.profile.HandymanProfileFragment.HANDYMAN;
 import static com.example.ve183011m.pki_ve183011m.presentation.buyer.requests.PaymentFragment.REQUEST;
 import static com.example.ve183011m.pki_ve183011m.presentation.login.LogInActivity.USER;
 
-public class BuyerMainActivity extends AppCompatActivity implements SearchHandymenFragment.OnListFragmentInteractionListener, BuyerRequestsFragment.BuyerRequestsFragmentCallback, HandymanProfileFragment.HandymanProfileFragmentCallback, PaymentFragment.PaymentFragmentCallback {
+public class BuyerMainActivity extends AppCompatActivity implements SearchHandymenFragment.SearchHandymenFragmentCallback, BuyerRequestsFragment.BuyerRequestsFragmentCallback, HandymanProfileFragment.HandymanProfileFragmentCallback, PaymentFragment.PaymentFragmentCallback {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -42,7 +45,7 @@ public class BuyerMainActivity extends AppCompatActivity implements SearchHandym
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_buyer_main);
 
-        final User user = (User)getIntent().getSerializableExtra(USER);
+        final User user = (User) getIntent().getSerializableExtra(USER);
 
         setSupportActionBar(binding.toolbar);
 
@@ -140,14 +143,22 @@ public class BuyerMainActivity extends AppCompatActivity implements SearchHandym
     }
 
     @Override
-    public void onListFragmentInteraction(User handyman) {
+    public void onHandymanSelected(Handyman handyman) {
+        Intent intent = new Intent(this, HandymanPreviewActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(HANDYMAN, handyman);
+        startActivity(intent);
+    }
 
+    @Override
+    public void onAddRequestFor(Handyman handyman) {
+        //TODO
     }
 
     @Override
     public void onRequestPaid(Request request) {
         request.setPayed(true);
-        ((BuyerRequestsFragment)getSupportFragmentManager().getFragments().get(1)).update();
+        ((BuyerRequestsFragment) getSupportFragmentManager().getFragments().get(1)).update();
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -163,7 +174,7 @@ public class BuyerMainActivity extends AppCompatActivity implements SearchHandym
         public Fragment getItem(int position) {
             switch (position) {
                 case 0: {
-                    return SearchHandymenFragment.newInstance();
+                    return SearchHandymenFragment.newInstance(user);
                 }
                 case 1: {
                     return BuyerRequestsFragment.newInstance(user);

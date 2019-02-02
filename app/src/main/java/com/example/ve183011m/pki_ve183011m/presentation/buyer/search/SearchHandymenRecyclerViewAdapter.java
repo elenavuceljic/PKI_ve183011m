@@ -4,20 +4,23 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.ve183011m.pki_ve183011m.R;
+import com.example.ve183011m.pki_ve183011m.model.Handyman;
 import com.example.ve183011m.pki_ve183011m.model.User;
-import com.example.ve183011m.pki_ve183011m.presentation.buyer.search.SearchHandymenFragment.OnListFragmentInteractionListener;
+import com.example.ve183011m.pki_ve183011m.presentation.buyer.search.SearchHandymenFragment.SearchHandymenFragmentCallback;
 
 import java.util.List;
 
 public class SearchHandymenRecyclerViewAdapter extends RecyclerView.Adapter<SearchHandymenRecyclerViewAdapter.ViewHolder> {
 
-    private final List<User> handymenList;
-    private final OnListFragmentInteractionListener mListener;
+    private final List<Handyman> handymenList;
+    private final SearchHandymenFragmentCallback mListener;
 
-    public SearchHandymenRecyclerViewAdapter(List<User> items, OnListFragmentInteractionListener listener) {
+    public SearchHandymenRecyclerViewAdapter(List<Handyman> items, SearchHandymenFragmentCallback listener) {
         handymenList = items;
         mListener = listener;
     }
@@ -31,17 +34,25 @@ public class SearchHandymenRecyclerViewAdapter extends RecyclerView.Adapter<Sear
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.handyman = handymenList.get(position);
-        holder.mIdView.setText(handymenList.get(position).getFullName());
-        holder.mContentView.setText(handymenList.get(position).getAddress());
+        final Handyman handyman = handymenList.get(position);
+        holder.handyman = handyman;
+        holder.mName.setText(handyman.getFullName());
+        holder.mRating.setRating(handyman.getRating());
+        holder.mJobNames.setText(handyman.getSkillsAsString());
+        holder.mBtnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != mListener) {
+                    mListener.onAddRequestFor(handyman);
+                }
+            }
+        });
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.handyman);
+                    mListener.onHandymanSelected(handyman);
                 }
             }
         });
@@ -54,20 +65,24 @@ public class SearchHandymenRecyclerViewAdapter extends RecyclerView.Adapter<Sear
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
+        public final TextView mName;
+        public final RatingBar mRating;
+        public final TextView mJobNames;
+        public final ImageButton mBtnAdd;
         public User handyman;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = view.findViewById(R.id.handyman_name);
-            mContentView = view.findViewById(R.id.handyman_rating);
+            mName = view.findViewById(R.id.handymen_full_name);
+            mRating = view.findViewById(R.id.handymen_rating);
+            mJobNames = view.findViewById(R.id.handymen_job_names);
+            mBtnAdd = view.findViewById(R.id.handymen_add_btn);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mName.getText() + "'";
         }
     }
 }

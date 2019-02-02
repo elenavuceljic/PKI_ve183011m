@@ -14,18 +14,34 @@ import android.view.ViewGroup;
 
 import com.example.ve183011m.pki_ve183011m.R;
 import com.example.ve183011m.pki_ve183011m.data.UserManager;
+import com.example.ve183011m.pki_ve183011m.model.Handyman;
 import com.example.ve183011m.pki_ve183011m.model.User;
 
 public class SearchHandymenFragment extends Fragment {
 
-    private OnListFragmentInteractionListener mListener;
+    private User user;
+    private static final String USER = "user";
+
+    private SearchHandymenFragmentCallback mListener;
 
     public SearchHandymenFragment() {
     }
 
-    @SuppressWarnings("unused")
-    public static SearchHandymenFragment newInstance() {
-        return new SearchHandymenFragment();
+    public static SearchHandymenFragment newInstance(User user) {
+        SearchHandymenFragment fragment = new SearchHandymenFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(USER, user);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (getArguments() != null) {
+            user = (User) getArguments().getSerializable(USER);
+        }
     }
 
     @Override
@@ -54,8 +70,8 @@ public class SearchHandymenFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
+        if (context instanceof SearchHandymenFragmentCallback) {
+            mListener = (SearchHandymenFragmentCallback) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement BuyerRequestsFragmentCallback");
@@ -68,7 +84,10 @@ public class SearchHandymenFragment extends Fragment {
         mListener = null;
     }
 
-    public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(User handyman);
+    public interface SearchHandymenFragmentCallback {
+        void onHandymanSelected(Handyman handyman);
+
+        void onAddRequestFor(Handyman handyman);
     }
+
 }
