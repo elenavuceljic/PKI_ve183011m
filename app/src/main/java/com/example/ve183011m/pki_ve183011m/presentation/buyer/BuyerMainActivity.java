@@ -10,7 +10,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,7 +35,9 @@ import static com.example.ve183011m.pki_ve183011m.presentation.buyer.profile.Han
 import static com.example.ve183011m.pki_ve183011m.presentation.buyer.requests.PaymentFragment.REQUEST;
 import static com.example.ve183011m.pki_ve183011m.presentation.login.LogInActivity.USER;
 
-public class BuyerMainActivity extends AppCompatActivity implements SearchHandymenFragment.SearchHandymenFragmentCallback, BuyerRequestsFragment.BuyerRequestsFragmentCallback, HandymanProfileFragment.HandymanProfileFragmentCallback, PaymentFragment.PaymentFragmentCallback {
+public class BuyerMainActivity extends AppCompatActivity implements SearchHandymenFragment.SearchHandymenFragmentCallback,
+        BuyerRequestsFragment.BuyerRequestsFragmentCallback, HandymanProfileFragment.HandymanProfileFragmentCallback,
+        PaymentFragment.PaymentFragmentCallback {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
