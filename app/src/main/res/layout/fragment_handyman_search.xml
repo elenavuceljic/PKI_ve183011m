@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.handyman.HandymanSearchFragment"
+    android:padding="30dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/urgency"
+        android:textStyle="bold"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@id/cb_medium"/>
+
+    <CheckBox
+        android:id="@+id/cb_high"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/high"
+        android:checked="true"
+        android:tag="HIGH"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"/>
+
+    <CheckBox
+        android:id="@+id/cb_medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/medium"
+        android:checked="true"
+        android:layout_alignStart="@id/cb_high"
+        android:layout_below="@id/cb_high"
+        android:tag="MEDIUM"/>
+
+    <CheckBox
+        android:id="@+id/cb_low"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/low"
+        android:checked="true"
+        android:layout_alignStart="@id/cb_high"
+        android:layout_below="@id/cb_medium"
+        android:tag="LOW"/>
+
+    <TextView
+        android:id="@+id/distance_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/distance"
+        android:textStyle="bold"
+        android:layout_alignParentStart="true"
+        android:layout_alignBaseline="@id/distance_et"
+        android:labelFor="@id/distance_et"/>
+
+    <EditText
+        android:id="@+id/distance_et"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="5"
+        android:inputType="numberDecimal"
+        android:layout_below="@id/cb_low"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_alignStart="@id/cb_high"
+        android:importantForAutofill="no"
+        tools:ignore="UnusedAttribute" />
+
+</RelativeLayout>

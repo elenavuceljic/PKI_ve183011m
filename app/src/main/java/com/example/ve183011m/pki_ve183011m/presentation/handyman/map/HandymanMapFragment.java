@@ -74,8 +74,6 @@ public class HandymanMapFragment extends Fragment implements OnRequestPermission
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_handyman_map, container, false);
 
-        requests = RequestManager.getInstance().getRequestsForHandyman(user);
-
         mMapView = (MapView) rootView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
 
@@ -106,8 +104,13 @@ public class HandymanMapFragment extends Fragment implements OnRequestPermission
         return rootView;
     }
 
-    private void updateMapUI() {
-        requests.addAll(RequestManager.getInstance().getClosedRequestsForHandyman(user));
+    public void updateMapUI() {
+        if (googleMap == null)
+            return;
+
+        googleMap.clear();
+
+        requests = RequestManager.getInstance().getRequestsForHandyman(user);
         Geocoder geocoder = new Geocoder(getContext());
         List<LatLng> locations = new ArrayList<>();
 
@@ -129,6 +132,9 @@ public class HandymanMapFragment extends Fragment implements OnRequestPermission
             Marker marker = googleMap.addMarker(new MarkerOptions().position(location).title(request.getAddress()).snippet(request.getJob().getName()));
             marker.setTag(request);
         }
+
+        if (locations.size() == 0)
+            return;
 
         CameraPosition cameraPosition = new CameraPosition.Builder().target(locations.get(0)).zoom(12).build();
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
@@ -163,6 +169,7 @@ public class HandymanMapFragment extends Fragment implements OnRequestPermission
     @Override
     public void onResume() {
         super.onResume();
+        updateMapUI();
         mMapView.onResume();
     }
 

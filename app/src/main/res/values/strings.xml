@@ -73,7 +73,7 @@
     <string name="new_pass">New password</string>
     <string name="client">Client</string>
     <string name="search_by">Search by:</string>
-    <string name="distance">Distance</string>
+    <string name="distance">Distance in km</string>
     <string name="payment_method">Payment\nmethod</string>
     <string name="urgency">Urgency</string>
     <string name="rate">Rate</string>
@@ -91,9 +91,6 @@
     <string name="passwords_dont_match">Passwords don\'t match</string>
     <string name="enter_name">Enter full name</string>
     <string name="leave_review">Leave a review</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="enter_card_number">Enter credit card number</string>
     <string name="enter_expiration_date">Enter expiration date</string>
     <string name="enter_cvv">Enter CVV</string>
@@ -106,5 +103,11 @@
     <string name="permission_rationale_location">Access to the location service is required to demonstrate the \'my location\' feature, which shows your current location on the map.</string>
     <string name="location_permission_denied">This sample requires location permission to enable the \'my location\' layer. Please try again and grant access to use the location.\nIf the permission has been permanently denied, it can be enabled from the System Settings &gt; Apps &gt; \'Google Maps API Demos\'.</string>
     <string name="permission_required_toast">Location permission is required for this demo.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="high">High</string>
+    <string name="medium">Medium</string>
+    <string name="low">Low</string>
 
 </resources>

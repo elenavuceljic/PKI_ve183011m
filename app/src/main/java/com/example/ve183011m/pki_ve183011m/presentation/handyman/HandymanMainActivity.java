@@ -9,6 +9,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,19 +26,14 @@ import com.example.ve183011m.pki_ve183011m.presentation.handyman.map.HandymanMap
 import com.example.ve183011m.pki_ve183011m.presentation.handyman.requests.HandymanRequestPreviewActivity;
 import com.example.ve183011m.pki_ve183011m.presentation.handyman.requests.HandymanRequestsFragment;
 import com.example.ve183011m.pki_ve183011m.presentation.login.LogInActivity;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.List;
 
 import static com.example.ve183011m.pki_ve183011m.presentation.buyer.requests.PaymentFragment.REQUEST;
 import static com.example.ve183011m.pki_ve183011m.presentation.login.LogInActivity.USER;
 
 public class HandymanMainActivity extends AppCompatActivity implements HandymanProfileFragment.HandymanProfileFragmentCallback,
-        HandymanRequestsFragment.HandymanRequestsFragmentCallback, HandymanMapFragment.HandymanMapFragmentCallback {
+        HandymanRequestsFragment.HandymanRequestsFragmentCallback, HandymanMapFragment.HandymanMapFragmentCallback, HandymanSearchFragment.HandymanSearchFragmentCallback {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -54,6 +50,26 @@ public class HandymanMainActivity extends AppCompatActivity implements HandymanP
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), user);
         binding.container.setAdapter(mSectionsPagerAdapter);
 
+        binding.container.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                if ((getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.container + ":" + binding.container.getCurrentItem()) instanceof HandymanMapFragment)) {
+                    HandymanMapFragment fragment = (HandymanMapFragment) getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.container + ":" + binding.container.getCurrentItem());
+                    fragment.updateMapUI();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
+
         binding.container.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(binding.tabs));
         binding.tabs.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(binding.container));
 
@@ -64,6 +80,12 @@ public class HandymanMainActivity extends AppCompatActivity implements HandymanP
                     binding.bottomRequestsNavigation.setVisibility(View.VISIBLE);
                 } else {
                     binding.bottomRequestsNavigation.setVisibility(View.GONE);
+                }
+
+                if (tab.getPosition() == 2) {
+                    binding.searchFab.hide();
+                } else {
+                    binding.searchFab.show();
                 }
             }
 
@@ -81,24 +103,36 @@ public class HandymanMainActivity extends AppCompatActivity implements HandymanP
         binding.bottomRequestsNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                HandymanRequestsFragment fragment = (HandymanRequestsFragment) getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.container + ":" + binding.container.getCurrentItem());
-                RequestManager requestManager = RequestManager.getInstance();
-                switch (menuItem.getItemId()) {
-                    case R.id.active_request:
-                        fragment.adapter.requestsList = requestManager.getActiveRequestsForHandyman(user);
-                        fragment.adapter.notifyDataSetChanged();
-                        return true;
-                    case R.id.closed_requests:
-                        fragment.adapter.requestsList = requestManager.getClosedRequestsForHandyman(user);
-                        fragment.adapter.notifyDataSetChanged();
-                        return true;
+                if ((getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.container + ":" + binding.container.getCurrentItem()) instanceof HandymanRequestsFragment)) {
+                    HandymanRequestsFragment fragment = (HandymanRequestsFragment) getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.container + ":" + binding.container.getCurrentItem());
+                    RequestManager requestManager = RequestManager.getInstance();
+                    switch (menuItem.getItemId()) {
+                        case R.id.active_request:
+                            if (fragment != null) {
+                                fragment.adapter.requestsList = requestManager.getActiveRequestsForHandyman(user);
+                                fragment.adapter.notifyDataSetChanged();
+                                return true;
+                            }
+                        case R.id.closed_requests:
+                            if (fragment != null) {
+                                fragment.adapter.requestsList = requestManager.getClosedRequestsForHandyman(user);
+                                fragment.adapter.notifyDataSetChanged();
+                                return true;
+                            }
+                    }
                 }
-
                 return false;
             }
         });
-    }
 
+        binding.searchFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HandymanSearchFragment.newInstance().show(getSupportFragmentManager(), "search");
+            }
+        });
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -139,6 +173,15 @@ public class HandymanMainActivity extends AppCompatActivity implements HandymanP
         startActivity(intent);
     }
 
+    @Override
+    public void onSearchBy(List<Request.Urgency> urgencyList, float lessThanDistance) {
+        binding.bottomRequestsNavigation.setSelectedItemId(binding.bottomRequestsNavigation.getSelectedItemId());
+        if ((getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.container + ":" + binding.container.getCurrentItem()) instanceof HandymanMapFragment)) {
+            HandymanMapFragment fragment = (HandymanMapFragment) getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.container + ":" + binding.container.getCurrentItem());
+            fragment.updateMapUI();
+        }
+    }
+
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         private User user;
@@ -154,7 +197,7 @@ public class HandymanMainActivity extends AppCompatActivity implements HandymanP
                 case 0:
                     return HandymanRequestsFragment.newInstance(user);
                 case 1:
-                   return HandymanMapFragment.newInstance(user);
+                    return HandymanMapFragment.newInstance(user);
                 default:
                     return HandymanProfileFragment.newInstance(user);
             }
