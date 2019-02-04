@@ -7,11 +7,18 @@ import com.example.ve183011m.pki_ve183011m.model.User;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class UserManager implements Serializable {
 
     private static UserManager instance = new UserManager();
+
+    private static float ratingFilter = 0.0f;
+    private static Date startDate = new Date(), endDate = new Date();
+    private static String jobFilter = "";
+    private static float priceMoreThanFilter = 0.0f, priceLessThanFilter = 10000.0f;
+    private static int experienceFilter = 0;
 
     private List<User> users = new ArrayList<User>() {{
         add(new User("buyer", "buyer", "John Doe", "064555333",
@@ -64,5 +71,61 @@ public class UserManager implements Serializable {
         }
 
         return handymen;
+    }
+
+    public static float getRatingFilter() {
+        return ratingFilter;
+    }
+
+    public static void setRatingFilter(float ratingFilter) {
+        UserManager.ratingFilter = ratingFilter;
+    }
+
+    public static Date getStartDate() {
+        return startDate;
+    }
+
+    public static void setStartDate(Date startDate) {
+        UserManager.startDate = startDate;
+    }
+
+    public static Date getEndDate() {
+        return endDate;
+    }
+
+    public static void setEndDate(Date endDate) {
+        UserManager.endDate = endDate;
+    }
+
+    public static float getPriceMoreThanFilter() {
+        return priceMoreThanFilter;
+    }
+
+    public static void setPriceMoreThanFilter(float priceMoreThanFilter) {
+        UserManager.priceMoreThanFilter = priceMoreThanFilter;
+    }
+
+    public static float getPriceLessThanFilter() {
+        return priceLessThanFilter;
+    }
+
+    public static void setPriceLessThanFilter(float priceLessThanFilter) {
+        UserManager.priceLessThanFilter = priceLessThanFilter;
+    }
+
+    public static int getExperienceFilter() {
+        return experienceFilter;
+    }
+
+    public static void setExperienceFilter(int experienceFilter) {
+        UserManager.experienceFilter = experienceFilter;
+    }
+
+    public static String getJobFilter() {
+        return jobFilter;
+    }
+
+    public static void setJobFilter(String jobFilter) {
+        UserManager.jobFilter = jobFilter;
     }
 }

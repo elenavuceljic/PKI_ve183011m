@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".presentation.buyer.search.BuyerSearchActivity">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorAccent"
+            android:paddingTop="@dimen/appbar_padding_top"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:title="@string/search_by" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar"
+            android:layout_margin="30dp"
+            android:layout_marginTop="@dimen/appbar_padding_top">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/job_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="20dp"
+                    android:maxLines="1"
+                    android:text="@string/job"
+                    android:textAlignment="textEnd"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:backgroundTint="@color/colorAccent"
+                    android:layout_alignBottom="@id/job_tv"/>
+
+                <TextView
+                    android:id="@+id/experience_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/job_tv"
+                    android:layout_alignStart="@id/job_tv"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:maxLines="1"
+                    android:text="@string/years_experience"
+                    android:textAlignment="textEnd"
+                    android:textStyle="bold" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/experience_wrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@id/spinner"
+                    android:layout_alignBottom="@id/experience_tv">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/experience_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/colorAccent"
+                        android:inputType="number"
+                        android:singleLine="true"
+                        android:textColorHint="@color/colorTextSecondary"
+                        android:textSize="14sp" />
+                </android.support.design.widget.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/price_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/experience_tv"
+                    android:layout_alignStart="@id/job_tv"
+                    android:layout_marginTop="20dp"
+                    android:maxLines="1"
+                    android:text="@string/price"
+                    android:textAlignment="textEnd"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/price_from_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/price_tv"
+                    android:layout_alignStart="@id/job_tv"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:maxLines="1"
+                    android:text="@string/from"
+                    android:textAlignment="textEnd"
+                    android:textStyle="italic" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/price_from_wrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@id/spinner"
+                    android:layout_alignBottom="@id/price_from_tv">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/price_from_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/colorAccent"
+                        android:inputType="numberDecimal"
+                        android:singleLine="true"
+                        android:textColorHint="@color/colorTextSecondary"
+                        android:textSize="14sp" />
+                </android.support.design.widget.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/price_to_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/price_from_tv"
+                    android:layout_alignStart="@id/job_tv"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:maxLines="1"
+                    android:text="@string/to"
+                    android:textAlignment="textEnd"
+                    android:textStyle="italic" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/price_to_wrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@id/spinner"
+                    android:layout_alignBottom="@id/price_to_tv">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/price_to_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/colorAccent"
+                        android:inputType="numberDecimal"
+                        android:singleLine="true"
+                        android:textColorHint="@color/colorTextSecondary"
+                        android:textSize="14sp" />
+                </android.support.design.widget.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/start_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/price_to_tv"
+                    android:layout_alignStart="@id/job_tv"
+                    android:layout_marginTop="20dp"
+                    android:labelFor="@id/start_date_et"
+                    android:maxLines="1"
+                    android:text="@string/start_date"
+                    android:textAlignment="textEnd"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/start_date_et"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@id/spinner"
+                    android:layout_alignBottom="@id/start_date"
+                    android:layout_alignParentEnd="true"
+                    android:backgroundTint="@color/colorAccent"
+                    android:drawableEnd="@drawable/ic_date_range_black_24dp"
+                    android:drawableTint="@color/colorAccent"
+                    android:inputType="none"
+                    tools:ignore="Autofill,TextFields" />
+
+                <TextView
+                    android:id="@+id/end_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/start_date"
+                    android:layout_alignStart="@id/job_tv"
+                    android:layout_marginTop="20dp"
+                    android:labelFor="@id/end_date_et"
+                    android:maxLines="1"
+                    android:text="@string/end_date"
+                    android:textAlignment="textEnd"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/end_date_et"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@id/spinner"
+                    android:layout_alignBottom="@id/end_date"
+                    android:layout_alignParentEnd="true"
+                    android:backgroundTint="@color/colorAccent"
+                    android:drawableEnd="@drawable/ic_date_range_black_24dp"
+                    android:drawableTint="@color/colorAccent"
+                    android:inputType="none"
+                    tools:ignore="Autofill,TextFields" />
+
+                <TextView
+                    android:id="@+id/rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/end_date"
+                    android:layout_alignStart="@id/job_tv"
+                    android:layout_marginTop="20dp"
+                    android:maxLines="1"
+                    android:text="@string/rating"
+                    android:textAlignment="textEnd"
+                    android:textStyle="bold" />
+
+                <RatingBar
+                    android:id="@+id/rating_bar"
+                    style="?android:attr/ratingBarStyleIndicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@id/spinner"
+                    android:layout_below="@id/end_date_et"
+                    android:numStars="5"
+                    android:isIndicator="false"/>
+
+                <Button
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/rating"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/search"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
+
+</layout>
