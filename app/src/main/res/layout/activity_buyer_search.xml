@@ -46,8 +46,7 @@
                     android:id="@+id/spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingStart="10dp"
-                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="100dp"
                     android:backgroundTint="@color/colorAccent"
                     android:layout_alignBottom="@id/job_tv"/>
 
@@ -62,7 +61,8 @@
                     android:maxLines="1"
                     android:text="@string/years_experience"
                     android:textAlignment="textEnd"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:paddingBottom="10dp"/>
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/experience_wrapper"
@@ -92,7 +92,8 @@
                     android:maxLines="1"
                     android:text="@string/price"
                     android:textAlignment="textEnd"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:paddingBottom="10dp"/>
 
                 <TextView
                     android:id="@+id/price_from_tv"
@@ -105,7 +106,8 @@
                     android:maxLines="1"
                     android:text="@string/from"
                     android:textAlignment="textEnd"
-                    android:textStyle="italic" />
+                    android:textStyle="italic"
+                    android:paddingBottom="10dp"/>
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/price_from_wrapper"
@@ -136,7 +138,8 @@
                     android:maxLines="1"
                     android:text="@string/to"
                     android:textAlignment="textEnd"
-                    android:textStyle="italic" />
+                    android:textStyle="italic"
+                    android:paddingBottom="10dp"/>
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/price_to_wrapper"
@@ -167,7 +170,8 @@
                     android:maxLines="1"
                     android:text="@string/start_date"
                     android:textAlignment="textEnd"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:paddingBottom="10dp"/>
 
                 <EditText
                     android:id="@+id/start_date_et"
@@ -193,7 +197,8 @@
                     android:maxLines="1"
                     android:text="@string/end_date"
                     android:textAlignment="textEnd"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:paddingBottom="10dp"/>
 
                 <EditText
                     android:id="@+id/end_date_et"
@@ -228,7 +233,8 @@
                     android:layout_alignStart="@id/spinner"
                     android:layout_below="@id/end_date_et"
                     android:numStars="5"
-                    android:isIndicator="false"/>
+                    android:isIndicator="false"
+                    android:layout_marginTop="10dp"/>
 
                 <Button
                     style="@style/Widget.MaterialComponents.Button"
