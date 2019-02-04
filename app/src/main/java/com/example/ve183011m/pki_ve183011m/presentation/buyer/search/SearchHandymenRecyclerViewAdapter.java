@@ -17,7 +17,7 @@ import java.util.List;
 
 public class SearchHandymenRecyclerViewAdapter extends RecyclerView.Adapter<SearchHandymenRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Handyman> handymenList;
+    public List<Handyman> handymenList;
     private final SearchHandymenFragmentCallback mListener;
 
     public SearchHandymenRecyclerViewAdapter(List<Handyman> items, SearchHandymenFragmentCallback listener) {

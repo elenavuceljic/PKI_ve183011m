@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.RatingBar;
 
 import com.example.ve183011m.pki_ve183011m.R;
 import com.example.ve183011m.pki_ve183011m.data.UserManager;
@@ -36,6 +37,13 @@ public class BuyerSearchActivity extends AppCompatActivity {
         setSupportActionBar(binding.toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
+        UserManager.setPriceLessThanFilter(0.0f);
+        UserManager.setPriceMoreThanFilter(0.0f);
+        UserManager.setExperienceFilter(0);
+        UserManager.setRatingFilter(0.0f);
+        UserManager.setJobFilter("");
+        UserManager.setStartDate(null);
+        UserManager.setEndDate(null);
 
         final String[] strings = {"Plumbing", "Electrical installations", "Furniture assembly", "Interior painting", "Air conditioning"};
         binding.spinner.setAdapter(new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, strings));
@@ -53,9 +61,6 @@ public class BuyerSearchActivity extends AppCompatActivity {
 
         String myFormat = "MM/dd/yy";
         final SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-
-        binding.startDateEt.setText(sdf.format(new Date()));
-        binding.endDateEt.setText(sdf.format(new Date()));
 
         final Calendar myCalendar = Calendar.getInstance();
 
@@ -171,6 +176,69 @@ public class BuyerSearchActivity extends AppCompatActivity {
                 new DatePickerDialog(BuyerSearchActivity.this, date1, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+        binding.ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                UserManager.setRatingFilter(rating);
+            }
+        });
+
+        binding.experienceEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                UserManager.setExperienceFilter(Integer.valueOf(s.toString()));
+            }
+        });
+        binding.priceFromEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                UserManager.setPriceMoreThanFilter(Integer.valueOf(s.toString()));
+            }
+        });
+        binding.priceToEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                UserManager.setPriceLessThanFilter(Integer.valueOf(s.toString()));
+            }
+        });
+
+        binding.searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
     }

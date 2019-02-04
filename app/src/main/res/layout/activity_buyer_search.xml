@@ -211,6 +211,7 @@
                     android:drawableEnd="@drawable/ic_date_range_black_24dp"
                     android:drawableTint="@color/colorAccent"
                     android:inputType="none"
+                    android:singleLine="true"
                     tools:ignore="Autofill,TextFields" />
 
                 <TextView
@@ -237,6 +238,7 @@
                     android:layout_marginTop="10dp"/>
 
                 <Button
+                    android:id="@+id/search_btn"
                     style="@style/Widget.MaterialComponents.Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -91,6 +91,18 @@ public class RequestManager {
         return list;
     }
 
+    public List<Request> getAllActiveRequestsForHandyman(User user) {
+        List<Request> list = new ArrayList<>();
+
+        for (Request request : requests) {
+            if (request.getStatus().ordinal() < 2 && request.getHandyman().equals(user)) {
+                list.add(request);
+            }
+        }
+
+        return list;
+    }
+
     public List<Request> getClosedRequestsForHandyman(User user) {
         List<Request> list = new ArrayList<>();
 

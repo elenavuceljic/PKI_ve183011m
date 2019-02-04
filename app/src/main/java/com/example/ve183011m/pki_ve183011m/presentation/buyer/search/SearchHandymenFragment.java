@@ -26,6 +26,8 @@ public class SearchHandymenFragment extends Fragment {
     private User user;
     private static final String USER = "user";
 
+    private SearchHandymenRecyclerViewAdapter adapter;
+
     private SearchHandymenFragmentCallback mListener;
 
     public SearchHandymenFragment() {
@@ -56,7 +58,8 @@ public class SearchHandymenFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.search_handymen_list);
         Context context = view.getContext();
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(new SearchHandymenRecyclerViewAdapter(UserManager.getInstance().getHandymen(), mListener));
+        adapter = new SearchHandymenRecyclerViewAdapter(UserManager.getInstance().getHandymen(), mListener);
+        recyclerView.setAdapter(adapter);
 
         FloatingActionButton fab = view.findViewById(R.id.search_fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +74,12 @@ public class SearchHandymenFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.handymenList = UserManager.getInstance().getHandymen();
+        adapter.notifyDataSetChanged();
+    }
 
     @Override
     public void onAttach(Context context) {
