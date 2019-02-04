@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,15 +15,8 @@ import android.view.ViewGroup;
 import com.example.ve183011m.pki_ve183011m.R;
 import com.example.ve183011m.pki_ve183011m.data.UserManager;
 import com.example.ve183011m.pki_ve183011m.model.Handyman;
-import com.example.ve183011m.pki_ve183011m.model.User;
-import com.example.ve183011m.pki_ve183011m.presentation.buyer.requests.BuyerRequestPreviewActivity;
-
-import static com.example.ve183011m.pki_ve183011m.presentation.buyer.requests.PaymentFragment.REQUEST;
 
 public class SearchHandymenFragment extends Fragment {
-
-    private User user;
-    private static final String USER = "user";
 
     private SearchHandymenRecyclerViewAdapter adapter;
 
@@ -33,21 +25,8 @@ public class SearchHandymenFragment extends Fragment {
     public SearchHandymenFragment() {
     }
 
-    public static SearchHandymenFragment newInstance(User user) {
-        SearchHandymenFragment fragment = new SearchHandymenFragment();
-        Bundle args = new Bundle();
-        args.putSerializable(USER, user);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            user = (User) getArguments().getSerializable(USER);
-        }
+    public static SearchHandymenFragment newInstance() {
+        return new SearchHandymenFragment();
     }
 
     @Override

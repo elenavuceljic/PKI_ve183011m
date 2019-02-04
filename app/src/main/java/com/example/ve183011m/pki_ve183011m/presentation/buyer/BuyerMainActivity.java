@@ -81,6 +81,11 @@ public class BuyerMainActivity extends AppCompatActivity implements SearchHandym
             }
         });
 
+        if (user == null) {
+            binding.tabs.removeTabAt(1);
+            binding.tabs.removeTabAt(1);
+        }
+
         binding.bottomRequestsNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -107,7 +112,7 @@ public class BuyerMainActivity extends AppCompatActivity implements SearchHandym
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_buyer_main, menu);
+        getMenuInflater().inflate(user != null ? R.menu.menu_buyer_main : R.menu.menu_guest_main, menu);
         return true;
     }
 
@@ -116,6 +121,11 @@ public class BuyerMainActivity extends AppCompatActivity implements SearchHandym
         int id = item.getItemId();
 
         if (id == R.id.action_log_out) {
+            logOut();
+            return true;
+        }
+
+        if (id == R.id.action_log_in) {
             logOut();
             return true;
         }
@@ -185,7 +195,7 @@ public class BuyerMainActivity extends AppCompatActivity implements SearchHandym
         public Fragment getItem(int position) {
             switch (position) {
                 case 0: {
-                    return SearchHandymenFragment.newInstance(user);
+                    return SearchHandymenFragment.newInstance();
                 }
                 case 1: {
                     return BuyerRequestsFragment.newInstance(user);
@@ -198,7 +208,7 @@ public class BuyerMainActivity extends AppCompatActivity implements SearchHandym
 
         @Override
         public int getCount() {
-            return 3;
+            return user != null ? 3 : 1;
         }
     }
 }
